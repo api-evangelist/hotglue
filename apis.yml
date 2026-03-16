@@ -1,0 +1,45 @@
+aid: hotglue
+name: Hotglue
+description: >-
+  Hotglue is an embedded integration platform that enables SaaS products to
+  offer native integrations to their customers. Hotglue provides an API for
+  managing integration flows, connectors, and job execution for connecting
+  third-party applications.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Integration Platform
+  - Embedded Integrations
+  - iPaaS
+  - Connectors
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/hotglue/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: hotglue:hotglue-api
+    name: Hotglue API
+    description: >-
+      The Hotglue API enables management of embedded integrations including
+      flow configurations, connector management, job execution, and tenant
+      management for SaaS product integrations.
+    humanURL: https://hotglue.com/docs
+    tags:
+      - Integration Platform
+      - Embedded Integrations
+    properties:
+      - type: Documentation
+        url: https://hotglue.com/docs
+      - type: Getting Started
+        url: https://hotglue.com/docs/getting-started
+common:
+  - type: Website
+    url: https://hotglue.com/
+  - type: Documentation
+    url: https://hotglue.com/docs
+  - type: Sign Up
+    url: https://hotglue.com/signup
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
