@@ -10,11 +10,11 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Integration Platform
-  - Embedded Integrations
-  - iPaaS
   - Connectors
+  - Embedded Integrations
   - ETL
+  - Integration Platform
+  - iPaaS
 url: >-
   https://raw.githubusercontent.com/api-evangelist/hotglue/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -30,10 +30,10 @@ apis:
       integrations.
     humanURL: https://docs.hotglue.com/api-reference/v2
     tags:
-      - Integration Platform
-      - Embedded Integrations
       - Connectors
+      - Embedded Integrations
       - ETL
+      - Integration Platform
     properties:
       - type: Documentation
         url: https://docs.hotglue.com/
@@ -48,8 +48,8 @@ apis:
       integration flows, connectors, and job execution.
     humanURL: https://docs.hotglue.com/api-reference/v1/introduction
     tags:
-      - Integration Platform
       - Embedded Integrations
+      - Integration Platform
     properties:
       - type: Documentation
         url: https://docs.hotglue.com/api-reference/v1/introduction
