@@ -18,7 +18,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/hotglue/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-03-26'
+modified: '2026-04-28'
 specificationVersion: '0.19'
 apis:
   - aid: hotglue:hotglue-api-v2
@@ -26,9 +26,10 @@ apis:
     description: >-
       The Hotglue API v2 enables programmatic management of embedded
       integrations including linked connectors, flow configurations, job
-      execution, tenant management, and sync operations for SaaS product
+      execution, tenant management, and connector state for SaaS product
       integrations.
     humanURL: https://docs.hotglue.com/api-reference/v2
+    baseURL: https://api.hotglue.com
     tags:
       - Connectors
       - Embedded Integrations
@@ -41,12 +42,16 @@ apis:
         url: https://docs.hotglue.com/api-reference/v2
       - type: GettingStarted
         url: https://docs.hotglue.com/getting-started
+      - type: OpenAPI
+        url: openapi/hotglue-openapi.yml
   - aid: hotglue:hotglue-api-v1
     name: Hotglue API V1
     description: >-
       The Hotglue API v1 provides the original REST API for managing
-      integration flows, connectors, and job execution.
+      integration flows, linked sources, linked targets, source state, and
+      job execution.
     humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+    baseURL: https://api.hotglue.com
     tags:
       - Embedded Integrations
       - Integration Platform

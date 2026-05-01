@@ -1,0 +1,391 @@
+openapi: 3.1.0
+info:
+  title: Hotglue API V2
+  description: >-
+    The Hotglue API v2 enables programmatic management of embedded
+    integrations including linked connectors, flow configurations, job
+    execution, tenant management, and connector state for SaaS product
+    integrations.
+  version: '2.0'
+  contact:
+    name: Hotglue Support
+    url: https://docs.hotglue.com
+externalDocs:
+  description: Hotglue API Reference v2
+  url: https://docs.hotglue.com/api-reference/v2
+servers:
+  - url: https://api.hotglue.com
+    description: Hotglue Production API
+tags:
+  - name: Linked Connectors
+    description: Create, retrieve, update, and delete linked connectors for a tenant.
+  - name: Connector State
+    description: Manage bookmark and sync state for linked connectors.
+  - name: Connector Metadata
+    description: Retrieve available and supported connectors.
+  - name: Jobs
+    description: Run jobs for linked connectors.
+  - name: Discover
+    description: Trigger and poll connector discovery.
+security:
+  - ApiKeyAuth: []
+paths:
+  /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors:
+    parameters:
+      - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/Tenant'
+    get:
+      tags: [Linked Connectors]
+      summary: Retrieve linked connectors
+      operationId: getLinkedConnectors
+      parameters:
+        - name: config
+          in: query
+          schema: { type: boolean }
+          description: Request the underlying config for the linked source.
+        - name: catalog
+          in: query
+          schema: { type: boolean }
+          description: Request the catalog of available fields.
+        - name: token
+          in: query
+          required: true
+          schema: { type: string }
+          description: JWT token from private signing key.
+      responses:
+        '200':
+          description: Array of linked connector objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/LinkedConnector' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    post:
+      tags: [Linked Connectors]
+      summary: Link a connector
+      operationId: linkConnector
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LinkConnectorRequest' }
+      responses:
+        '200': { $ref: '#/components/responses/EmptyOk' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    patch:
+      tags: [Linked Connectors]
+      summary: Update a linked connector
+      operationId: updateLinkedConnector
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateLinkedConnectorRequest' }
+      responses:
+        '200': { $ref: '#/components/responses/EmptyOk' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    delete:
+      tags: [Linked Connectors]
+      summary: Unlink a connector
+      operationId: unlinkConnector
+      parameters:
+        - name: connector_id
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { $ref: '#/components/responses/EmptyOk' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover:
+    parameters:
+      - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/Tenant'
+    get:
+      tags: [Discover]
+      summary: Trigger connector discovery
+      operationId: triggerDiscover
+      parameters:
+        - name: connector_id
+          in: query
+          required: true
+          schema: { type: string }
+        - name: v2_source
+          in: query
+          schema: { type: boolean }
+      responses:
+        '200':
+          description: Catalog of available tables and fields.
+          content:
+            application/json:
+              schema: { type: object }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover/poll:
+    parameters:
+      - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/Tenant'
+    get:
+      tags: [Discover]
+      summary: Poll discover status
+      operationId: pollDiscover
+      parameters:
+        - name: connector_id
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Discover status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    nullable: true
+                    example: RUNNING
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state:
+    parameters:
+      - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/Tenant'
+    get:
+      tags: [Connector State]
+      summary: Retrieve connector state
+      operationId: getConnectorState
+      parameters:
+        - name: connector_id
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Connector state with bookmarks.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ConnectorState' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    put:
+      tags: [Connector State]
+      summary: Set connector state
+      operationId: setConnectorState
+      parameters:
+        - name: connector_id
+          in: query
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state: { type: object }
+      responses:
+        '200': { $ref: '#/components/responses/EmptyOk' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+    delete:
+      tags: [Connector State]
+      summary: Delete connector state
+      operationId: deleteConnectorState
+      parameters:
+        - name: connector_id
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { $ref: '#/components/responses/EmptyOk' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /v2/{env_id}/{flow_id}/{tenant}/jobs:
+    parameters:
+      - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/FlowId'
+      - $ref: '#/components/parameters/Tenant'
+    post:
+      tags: [Jobs]
+      summary: Run a job
+      operationId: runJob
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RunJobRequest' }
+      responses:
+        '200':
+          description: Job created.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Job' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /v2/{env_id}/availableConnectors:
+    get:
+      tags: [Connector Metadata]
+      summary: Retrieve available connectors
+      operationId: listAvailableConnectors
+      parameters:
+        - $ref: '#/components/parameters/EnvId'
+      responses:
+        '200':
+          description: Array of available connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /v2/{env_id}/{flow_id}/supportedConnectors:
+    get:
+      tags: [Connector Metadata]
+      summary: Retrieve supported connectors
+      operationId: listSupportedConnectors
+      parameters:
+        - $ref: '#/components/parameters/EnvId'
+        - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Array of supported connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+        '400': { $ref: '#/components/responses/BadRequest' }
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+  parameters:
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema: { type: string }
+      description: Environment identifier.
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema: { type: string }
+      description: Flow identifier.
+    Tenant:
+      name: tenant
+      in: path
+      required: true
+      schema: { type: string }
+      description: Tenant identifier.
+  responses:
+    EmptyOk:
+      description: Successful empty response.
+      content:
+        application/json:
+          schema: { type: object }
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema: { type: object }
+  schemas:
+    LinkedConnector:
+      type: object
+      properties:
+        tap: { type: string }
+        domain: { type: string }
+        label: { type: string }
+        tap_url: { type: string }
+        auth_url: { type: string }
+        icon: { type: string }
+        type: { type: string }
+        client_id: { type: string }
+        fieldMap: { type: object }
+    LinkConnectorRequest:
+      type: object
+      required: [connector]
+      properties:
+        connector:
+          type: object
+          required: [id]
+          properties:
+            id: { type: string }
+            config: { type: object }
+            symlink:
+              type: object
+              properties:
+                id: { type: string }
+                tenant: { type: string }
+                type: { type: string }
+        schedule:
+          type: object
+          properties:
+            schedule_expression: { type: string }
+            state: { type: string, enum: [ENABLED, DISABLED] }
+        field_map: { type: object }
+    UpdateLinkedConnectorRequest:
+      type: object
+      required: [connector_id]
+      properties:
+        connector_id: { type: string }
+        field_map: { type: object }
+        config: { type: object }
+    ConnectorState:
+      type: object
+      properties:
+        bookmarks: { type: object }
+    RunJobRequest:
+      type: object
+      required: [connector_id, job_type]
+      properties:
+        connector_id: { type: string }
+        job_type: { type: string, enum: [read, write] }
+        job_name: { type: string }
+        override_start_date: { type: string }
+        override_end_date: { type: string }
+        reset_source_state: { type: boolean }
+        override_selected_tables: { type: array, items: { type: string } }
+        override_source_config: { type: object }
+        override_target_config: { type: object }
+        override_connector_config: { type: object }
+        override_field_map: { type: object }
+        environment_variables: { type: object }
+        state: { type: object }
+        streaming_job: { type: boolean }
+        ignore_parallel_jobs: { type: boolean }
+    Job:
+      type: object
+      properties:
+        job_id: { type: string }
+        env_id: { type: string }
+        flow_id: { type: string }
+        job_name: { type: string }
+        tenant: { type: string }
+        started_by: { type: string }
+        s3_root: { type: string }
+        start_time: { type: string }
+        state: { type: object }
+        tap: { type: string }
+        status:
+          type: string
+          enum:
+            - JOB_CREATED
+            - DISCOVER_STARTED
+            - DISCOVER_FAILED
+            - SYNC_STARTED
+            - SYNC_FAILED
+            - SYNC_SUCCESS
+            - ETL_STARTED
+            - ETL_FAILED
+            - ETL_SUCCESS
+            - EXPORT_STARTED
+            - EXPORT_FAILED
+            - JOB_COMPLETED
+        scheduled_job: { type: boolean }
+        message: { type: string }
+        last_updated: { type: string }
+        processed_rows: { type: integer }
