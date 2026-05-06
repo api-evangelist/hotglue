@@ -1,0 +1,503 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hotglue API V2
+  description: The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow
+    configurations, job execution, tenant management, and connector state for SaaS product integrations.
+  tags:
+  - Hotglue
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: hotglue
+    baseUri: https://api.hotglue.com
+    description: Hotglue API V2 HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: x-api-key
+      value: '{{HOTGLUE_TOKEN}}'
+    resources:
+    - name: v2-env-id-flow-id-tenant-linkedconnectors
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+      operations:
+      - name: getlinkedconnectors
+        method: GET
+        description: Retrieve linked connectors
+        inputParameters:
+        - name: config
+          in: query
+          type: boolean
+          description: Request the underlying config for the linked source.
+        - name: catalog
+          in: query
+          type: boolean
+          description: Request the catalog of available fields.
+        - name: token
+          in: query
+          type: string
+          required: true
+          description: JWT token from private signing key.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: linkconnector
+        method: POST
+        description: Link a connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatelinkedconnector
+        method: PATCH
+        description: Update a linked connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: unlinkconnector
+        method: DELETE
+        description: Unlink a connector
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-env-id-flow-id-tenant-linkedconnectors-discov
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover
+      operations:
+      - name: triggerdiscover
+        method: GET
+        description: Trigger connector discovery
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        - name: v2_source
+          in: query
+          type: boolean
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-env-id-flow-id-tenant-linkedconnectors-discov
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover/poll
+      operations:
+      - name: polldiscover
+        method: GET
+        description: Poll discover status
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-env-id-flow-id-tenant-linkedconnectors-state
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+      operations:
+      - name: getconnectorstate
+        method: GET
+        description: Retrieve connector state
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: setconnectorstate
+        method: PUT
+        description: Set connector state
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteconnectorstate
+        method: DELETE
+        description: Delete connector state
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-env-id-flow-id-tenant-jobs
+      path: /v2/{env_id}/{flow_id}/{tenant}/jobs
+      operations:
+      - name: runjob
+        method: POST
+        description: Run a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-env-id-availableconnectors
+      path: /v2/{env_id}/availableConnectors
+      operations:
+      - name: listavailableconnectors
+        method: GET
+        description: Retrieve available connectors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-env-id-flow-id-supportedconnectors
+      path: /v2/{env_id}/{flow_id}/supportedConnectors
+      operations:
+      - name: listsupportedconnectors
+        method: GET
+        description: Retrieve supported connectors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: hotglue-rest
+    description: REST adapter for Hotglue API V2.
+    resources:
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+      name: getlinkedconnectors
+      operations:
+      - method: GET
+        name: getlinkedconnectors
+        description: Retrieve linked connectors
+        call: hotglue.getlinkedconnectors
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+      name: linkconnector
+      operations:
+      - method: POST
+        name: linkconnector
+        description: Link a connector
+        call: hotglue.linkconnector
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+      name: updatelinkedconnector
+      operations:
+      - method: PATCH
+        name: updatelinkedconnector
+        description: Update a linked connector
+        call: hotglue.updatelinkedconnector
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+      name: unlinkconnector
+      operations:
+      - method: DELETE
+        name: unlinkconnector
+        description: Unlink a connector
+        call: hotglue.unlinkconnector
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover
+      name: triggerdiscover
+      operations:
+      - method: GET
+        name: triggerdiscover
+        description: Trigger connector discovery
+        call: hotglue.triggerdiscover
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover/poll
+      name: polldiscover
+      operations:
+      - method: GET
+        name: polldiscover
+        description: Poll discover status
+        call: hotglue.polldiscover
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+      name: getconnectorstate
+      operations:
+      - method: GET
+        name: getconnectorstate
+        description: Retrieve connector state
+        call: hotglue.getconnectorstate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+      name: setconnectorstate
+      operations:
+      - method: PUT
+        name: setconnectorstate
+        description: Set connector state
+        call: hotglue.setconnectorstate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+      name: deleteconnectorstate
+      operations:
+      - method: DELETE
+        name: deleteconnectorstate
+        description: Delete connector state
+        call: hotglue.deleteconnectorstate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/{tenant}/jobs
+      name: runjob
+      operations:
+      - method: POST
+        name: runjob
+        description: Run a job
+        call: hotglue.runjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/availableConnectors
+      name: listavailableconnectors
+      operations:
+      - method: GET
+        name: listavailableconnectors
+        description: Retrieve available connectors
+        call: hotglue.listavailableconnectors
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/{env_id}/{flow_id}/supportedConnectors
+      name: listsupportedconnectors
+      operations:
+      - method: GET
+        name: listsupportedconnectors
+        description: Retrieve supported connectors
+        call: hotglue.listsupportedconnectors
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: hotglue-mcp
+    transport: http
+    description: MCP adapter for Hotglue API V2 for AI agent use.
+    tools:
+    - name: getlinkedconnectors
+      description: Retrieve linked connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue.getlinkedconnectors
+      with:
+        config: tools.config
+        catalog: tools.catalog
+        token: tools.token
+      inputParameters:
+      - name: config
+        type: boolean
+        description: Request the underlying config for the linked source.
+      - name: catalog
+        type: boolean
+        description: Request the catalog of available fields.
+      - name: token
+        type: string
+        description: JWT token from private signing key.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: linkconnector
+      description: Link a connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: hotglue.linkconnector
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatelinkedconnector
+      description: Update a linked connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: hotglue.updatelinkedconnector
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlinkconnector
+      description: Unlink a connector
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: hotglue.unlinkconnector
+      with:
+        connector_id: tools.connector_id
+      inputParameters:
+      - name: connector_id
+        type: string
+        description: connector_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: triggerdiscover
+      description: Trigger connector discovery
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue.triggerdiscover
+      with:
+        connector_id: tools.connector_id
+        v2_source: tools.v2_source
+      inputParameters:
+      - name: connector_id
+        type: string
+        description: connector_id
+        required: true
+      - name: v2_source
+        type: boolean
+        description: v2_source
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: polldiscover
+      description: Poll discover status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue.polldiscover
+      with:
+        connector_id: tools.connector_id
+      inputParameters:
+      - name: connector_id
+        type: string
+        description: connector_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getconnectorstate
+      description: Retrieve connector state
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue.getconnectorstate
+      with:
+        connector_id: tools.connector_id
+      inputParameters:
+      - name: connector_id
+        type: string
+        description: connector_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: setconnectorstate
+      description: Set connector state
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: hotglue.setconnectorstate
+      with:
+        connector_id: tools.connector_id
+      inputParameters:
+      - name: connector_id
+        type: string
+        description: connector_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteconnectorstate
+      description: Delete connector state
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: hotglue.deleteconnectorstate
+      with:
+        connector_id: tools.connector_id
+      inputParameters:
+      - name: connector_id
+        type: string
+        description: connector_id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: runjob
+      description: Run a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: hotglue.runjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listavailableconnectors
+      description: Retrieve available connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue.listavailableconnectors
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listsupportedconnectors
+      description: Retrieve supported connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue.listsupportedconnectors
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    HOTGLUE_TOKEN: HOTGLUE_TOKEN
