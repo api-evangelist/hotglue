@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hotglue API V2 — Jobs
+  description: 'Hotglue API V2 — Jobs. 1 operations. Lead operation: Run a job. Self-contained Naftiko capability covering
+    one Hotglue business surface.'
+  tags:
+  - Hotglue
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HOTGLUE_API_KEY: HOTGLUE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hotglue-jobs
+    baseUri: https://api.hotglue.com
+    description: Hotglue API V2 — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-env_id-flow_id-tenant-jobs
+      path: /v2/{env_id}/{flow_id}/{tenant}/jobs
+      operations:
+      - name: runjob
+        method: POST
+        description: Run a job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.HOTGLUE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: hotglue-jobs-rest
+    port: 8080
+    description: REST adapter for Hotglue API V2 — Jobs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v2/{env-id}/{flow-id}/{tenant}/jobs
+      name: v2-env-id-flow-id-tenant-jobs
+      description: REST surface for v2-env_id-flow_id-tenant-jobs.
+      operations:
+      - method: POST
+        name: runjob
+        description: Run a job
+        call: hotglue-jobs.runjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hotglue-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hotglue API V2 — Jobs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: run-job
+      description: Run a job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: hotglue-jobs.runjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,156 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hotglue API V2 — Connector State
+  description: 'Hotglue API V2 — Connector State. 3 operations. Lead operation: Retrieve connector state. Self-contained Naftiko
+    capability covering one Hotglue business surface.'
+  tags:
+  - Hotglue
+  - Connector State
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HOTGLUE_API_KEY: HOTGLUE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hotglue-connector-state
+    baseUri: https://api.hotglue.com
+    description: Hotglue API V2 — Connector State business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-env_id-flow_id-tenant-linkedConnectors-state
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+      operations:
+      - name: getconnectorstate
+        method: GET
+        description: Retrieve connector state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+      - name: setconnectorstate
+        method: PUT
+        description: Set connector state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteconnectorstate
+        method: DELETE
+        description: Delete connector state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.HOTGLUE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: hotglue-connector-state-rest
+    port: 8080
+    description: REST adapter for Hotglue API V2 — Connector State. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/{env-id}/{flow-id}/{tenant}/linkedconnectors/state
+      name: v2-env-id-flow-id-tenant-linkedconnectors-state
+      description: REST surface for v2-env_id-flow_id-tenant-linkedConnectors-state.
+      operations:
+      - method: GET
+        name: getconnectorstate
+        description: Retrieve connector state
+        call: hotglue-connector-state.getconnectorstate
+        with:
+          connector_id: rest.connector_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: setconnectorstate
+        description: Set connector state
+        call: hotglue-connector-state.setconnectorstate
+        with:
+          connector_id: rest.connector_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteconnectorstate
+        description: Delete connector state
+        call: hotglue-connector-state.deleteconnectorstate
+        with:
+          connector_id: rest.connector_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hotglue-connector-state-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hotglue API V2 — Connector State. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: retrieve-connector-state
+      description: Retrieve connector state
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue-connector-state.getconnectorstate
+      with:
+        connector_id: tools.connector_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-connector-state
+      description: Set connector state
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: hotglue-connector-state.setconnectorstate
+      with:
+        connector_id: tools.connector_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-connector-state
+      description: Delete connector state
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: hotglue-connector-state.deleteconnectorstate
+      with:
+        connector_id: tools.connector_id
+      outputParameters:
+      - type: object
+        mapping: $.

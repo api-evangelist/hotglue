@@ -1,0 +1,198 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hotglue API V2 — Linked Connectors
+  description: 'Hotglue API V2 — Linked Connectors. 4 operations. Lead operation: Retrieve linked connectors. Self-contained
+    Naftiko capability covering one Hotglue business surface.'
+  tags:
+  - Hotglue
+  - Linked Connectors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HOTGLUE_API_KEY: HOTGLUE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hotglue-linked-connectors
+    baseUri: https://api.hotglue.com
+    description: Hotglue API V2 — Linked Connectors business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-env_id-flow_id-tenant-linkedConnectors
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+      operations:
+      - name: getlinkedconnectors
+        method: GET
+        description: Retrieve linked connectors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: config
+          in: query
+          type: boolean
+          description: Request the underlying config for the linked source.
+        - name: catalog
+          in: query
+          type: boolean
+          description: Request the catalog of available fields.
+        - name: token
+          in: query
+          type: string
+          description: JWT token from private signing key.
+          required: true
+      - name: linkconnector
+        method: POST
+        description: Link a connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatelinkedconnector
+        method: PATCH
+        description: Update a linked connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: unlinkconnector
+        method: DELETE
+        description: Unlink a connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.HOTGLUE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: hotglue-linked-connectors-rest
+    port: 8080
+    description: REST adapter for Hotglue API V2 — Linked Connectors. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/{env-id}/{flow-id}/{tenant}/linkedconnectors
+      name: v2-env-id-flow-id-tenant-linkedconnectors
+      description: REST surface for v2-env_id-flow_id-tenant-linkedConnectors.
+      operations:
+      - method: GET
+        name: getlinkedconnectors
+        description: Retrieve linked connectors
+        call: hotglue-linked-connectors.getlinkedconnectors
+        with:
+          config: rest.config
+          catalog: rest.catalog
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: linkconnector
+        description: Link a connector
+        call: hotglue-linked-connectors.linkconnector
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatelinkedconnector
+        description: Update a linked connector
+        call: hotglue-linked-connectors.updatelinkedconnector
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unlinkconnector
+        description: Unlink a connector
+        call: hotglue-linked-connectors.unlinkconnector
+        with:
+          connector_id: rest.connector_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hotglue-linked-connectors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hotglue API V2 — Linked Connectors. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: retrieve-linked-connectors
+      description: Retrieve linked connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue-linked-connectors.getlinkedconnectors
+      with:
+        config: tools.config
+        catalog: tools.catalog
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: link-connector
+      description: Link a connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: hotglue-linked-connectors.linkconnector
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-linked-connector
+      description: Update a linked connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: hotglue-linked-connectors.updatelinkedconnector
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlink-connector
+      description: Unlink a connector
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: hotglue-linked-connectors.unlinkconnector
+      with:
+        connector_id: tools.connector_id
+      outputParameters:
+      - type: object
+        mapping: $.

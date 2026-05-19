@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hotglue API V2 — Discover
+  description: 'Hotglue API V2 — Discover. 2 operations. Lead operation: Trigger connector discovery. Self-contained Naftiko
+    capability covering one Hotglue business surface.'
+  tags:
+  - Hotglue
+  - Discover
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HOTGLUE_API_KEY: HOTGLUE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hotglue-discover
+    baseUri: https://api.hotglue.com
+    description: Hotglue API V2 — Discover business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-env_id-flow_id-tenant-linkedConnectors-discover
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover
+      operations:
+      - name: triggerdiscover
+        method: GET
+        description: Trigger connector discovery
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+        - name: v2_source
+          in: query
+          type: boolean
+    - name: v2-env_id-flow_id-tenant-linkedConnectors-discover-poll
+      path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover/poll
+      operations:
+      - name: polldiscover
+        method: GET
+        description: Poll discover status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connector_id
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.HOTGLUE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: hotglue-discover-rest
+    port: 8080
+    description: REST adapter for Hotglue API V2 — Discover. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v2/{env-id}/{flow-id}/{tenant}/linkedconnectors/discover
+      name: v2-env-id-flow-id-tenant-linkedconnectors-discover
+      description: REST surface for v2-env_id-flow_id-tenant-linkedConnectors-discover.
+      operations:
+      - method: GET
+        name: triggerdiscover
+        description: Trigger connector discovery
+        call: hotglue-discover.triggerdiscover
+        with:
+          connector_id: rest.connector_id
+          v2_source: rest.v2_source
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/{env-id}/{flow-id}/{tenant}/linkedconnectors/discover/poll
+      name: v2-env-id-flow-id-tenant-linkedconnectors-discover-poll
+      description: REST surface for v2-env_id-flow_id-tenant-linkedConnectors-discover-poll.
+      operations:
+      - method: GET
+        name: polldiscover
+        description: Poll discover status
+        call: hotglue-discover.polldiscover
+        with:
+          connector_id: rest.connector_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hotglue-discover-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hotglue API V2 — Discover. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: trigger-connector-discovery
+      description: Trigger connector discovery
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue-discover.triggerdiscover
+      with:
+        connector_id: tools.connector_id
+        v2_source: tools.v2_source
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: poll-discover-status
+      description: Poll discover status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hotglue-discover.polldiscover
+      with:
+        connector_id: tools.connector_id
+      outputParameters:
+      - type: object
+        mapping: $.
