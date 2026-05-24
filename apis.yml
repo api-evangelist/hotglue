@@ -78,6 +78,8 @@ common:
     url: https://hotglue.com/signup
   - type: Login
     url: https://hotglue.com/login
+  - type: LLMsTxt
+    url: https://hotglue.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
