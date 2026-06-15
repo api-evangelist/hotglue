@@ -1,0 +1,2667 @@
+{
+  "item": [
+    {
+      "id": "02eb4aac-ad6e-409f-b812-78472c7c15a9",
+      "name": "Linked Connectors",
+      "description": {
+        "content": "Create, retrieve, update, and delete linked connectors for a tenant.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1213388c-9a71-4f4d-86ec-977d8a1960f4",
+          "name": "Retrieve linked connectors",
+          "request": {
+            "name": "Retrieve linked connectors",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "<boolean>",
+                  "description": "Request the underlying config for the linked source."
+                },
+                {
+                  "disabled": false,
+                  "key": "catalog",
+                  "value": "<boolean>",
+                  "description": "Request the catalog of available fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) JWT token from private signing key."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c99a180f-f001-4302-9fe8-00a539b6554c",
+              "name": "Array of linked connector objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "config",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "catalog",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"tap\": \"string\",\n    \"domain\": \"string\",\n    \"label\": \"string\",\n    \"tap_url\": \"string\",\n    \"auth_url\": \"string\",\n    \"icon\": \"string\",\n    \"type\": \"string\",\n    \"client_id\": \"string\",\n    \"fieldMap\": {}\n  },\n  {\n    \"tap\": \"string\",\n    \"domain\": \"string\",\n    \"label\": \"string\",\n    \"tap_url\": \"string\",\n    \"auth_url\": \"string\",\n    \"icon\": \"string\",\n    \"type\": \"string\",\n    \"client_id\": \"string\",\n    \"fieldMap\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c0b0d54-8bb5-45c7-af98-f507b033cc2f",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "config",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "catalog",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffe4981d-1d0b-4420-8d0b-6cc61b5f34db",
+          "name": "Link a connector",
+          "request": {
+            "name": "Link a connector",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connector\": {\n    \"id\": \"<string>\",\n    \"config\": \"<object>\",\n    \"symlink\": {\n      \"id\": \"<string>\",\n      \"tenant\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  },\n  \"schedule\": {\n    \"schedule_expression\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"field_map\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52f0f1eb-d49e-41ba-9ca1-879bef151c35",
+              "name": "Successful empty response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector\": {\n    \"id\": \"<string>\",\n    \"config\": \"<object>\",\n    \"symlink\": {\n      \"id\": \"<string>\",\n      \"tenant\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  },\n  \"schedule\": {\n    \"schedule_expression\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"field_map\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e20951aa-d659-4b22-b51d-effde568a4e1",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector\": {\n    \"id\": \"<string>\",\n    \"config\": \"<object>\",\n    \"symlink\": {\n      \"id\": \"<string>\",\n      \"tenant\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  },\n  \"schedule\": {\n    \"schedule_expression\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"field_map\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbb6562b-5a36-4de2-9f70-fa5dae858abd",
+          "name": "Update a linked connector",
+          "request": {
+            "name": "Update a linked connector",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connector_id\": \"<string>\",\n  \"field_map\": \"<object>\",\n  \"config\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "01a96a68-4f02-4d41-b20d-a148c0656743",
+              "name": "Successful empty response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector_id\": \"<string>\",\n  \"field_map\": \"<object>\",\n  \"config\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4f97934-85f9-4896-bb75-4f71050ce7cc",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector_id\": \"<string>\",\n  \"field_map\": \"<object>\",\n  \"config\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7d08f2c-6f28-4ce4-ba3f-9301064caf99",
+          "name": "Unlink a connector",
+          "request": {
+            "name": "Unlink a connector",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "connector_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "537cacde-5c36-468a-a580-05d8f4338509",
+              "name": "Successful empty response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "377c2ee3-d8d4-43e6-ab17-1f371d3a564f",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "95ef6adf-d747-4004-a913-58439c179cef",
+      "name": "Connector State",
+      "description": {
+        "content": "Manage bookmark and sync state for linked connectors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b7e5ba8a-8098-490c-96ef-46b97dbbd096",
+          "name": "Retrieve connector state",
+          "request": {
+            "name": "Retrieve connector state",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "connector_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cdb8a1d1-9f3c-48a9-adf3-95436765fba8",
+              "name": "Connector state with bookmarks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bookmarks\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de8e4246-0204-477c-91bd-709d1ed795f2",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf381b46-9735-46e7-891a-87480448aa92",
+          "name": "Set connector state",
+          "request": {
+            "name": "Set connector state",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "connector_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fe88e13a-026c-4221-bfa1-3c8193d22573",
+              "name": "Successful empty response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d70e0c0a-da22-40c1-9f5c-6164296b1bf3",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ffb5d1a-bbc6-41e9-9273-4f5609876835",
+          "name": "Delete connector state",
+          "request": {
+            "name": "Delete connector state",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "connector_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c76f7f2-2df5-4803-8988-81ea6e639644",
+              "name": "Successful empty response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29bbfcd6-8dd0-49b4-b759-d3fed01c5308",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9707abfd-3dfc-4553-997e-15edfd5e71e0",
+      "name": "Connector Metadata",
+      "description": {
+        "content": "Retrieve available and supported connectors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "935ab382-d1e6-40c1-ae4e-088dfcb852a7",
+          "name": "Retrieve available connectors",
+          "request": {
+            "name": "Retrieve available connectors",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                "availableConnectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "873faade-d6e1-4f11-8b76-7526bc64330b",
+              "name": "Array of available connectors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    "availableConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87acbb33-08ae-4ffc-b112-b412df10d991",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    "availableConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "daf0b482-9313-484f-9992-6f9e72c5c438",
+          "name": "Retrieve supported connectors",
+          "request": {
+            "name": "Retrieve supported connectors",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                "supportedConnectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb7b8ec1-6e71-463c-a0c6-88d74a974e44",
+              "name": "Array of supported connectors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    "supportedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79d51528-75f6-48a3-acc2-eba68f9dea3e",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    "supportedConnectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "17dae31c-2f9a-47b6-a237-95d814b7e44a",
+      "name": "Jobs",
+      "description": {
+        "content": "Run jobs for linked connectors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b0f0233a-3474-46e2-85b0-3054846c1286",
+          "name": "Run a job",
+          "request": {
+            "name": "Run a job",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connector_id\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"job_name\": \"<string>\",\n  \"override_start_date\": \"<string>\",\n  \"override_end_date\": \"<string>\",\n  \"reset_source_state\": \"<boolean>\",\n  \"override_selected_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"override_source_config\": \"<object>\",\n  \"override_target_config\": \"<object>\",\n  \"override_connector_config\": \"<object>\",\n  \"override_field_map\": \"<object>\",\n  \"environment_variables\": \"<object>\",\n  \"state\": \"<object>\",\n  \"streaming_job\": \"<boolean>\",\n  \"ignore_parallel_jobs\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eeaf4798-0c15-4b89-8374-d6978c408c10",
+              "name": "Job created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector_id\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"job_name\": \"<string>\",\n  \"override_start_date\": \"<string>\",\n  \"override_end_date\": \"<string>\",\n  \"reset_source_state\": \"<boolean>\",\n  \"override_selected_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"override_source_config\": \"<object>\",\n  \"override_target_config\": \"<object>\",\n  \"override_connector_config\": \"<object>\",\n  \"override_field_map\": \"<object>\",\n  \"environment_variables\": \"<object>\",\n  \"state\": \"<object>\",\n  \"streaming_job\": \"<boolean>\",\n  \"ignore_parallel_jobs\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"env_id\": \"string\",\n  \"flow_id\": \"string\",\n  \"job_name\": \"string\",\n  \"tenant\": \"string\",\n  \"started_by\": \"string\",\n  \"s3_root\": \"string\",\n  \"start_time\": \"string\",\n  \"state\": {},\n  \"tap\": \"string\",\n  \"status\": \"SYNC_STARTED\",\n  \"scheduled_job\": true,\n  \"message\": \"string\",\n  \"last_updated\": \"string\",\n  \"processed_rows\": 4590\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2946ea90-8dea-4d5b-ad25-2ac7510ecda4",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector_id\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"job_name\": \"<string>\",\n  \"override_start_date\": \"<string>\",\n  \"override_end_date\": \"<string>\",\n  \"reset_source_state\": \"<boolean>\",\n  \"override_selected_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"override_source_config\": \"<object>\",\n  \"override_target_config\": \"<object>\",\n  \"override_connector_config\": \"<object>\",\n  \"override_field_map\": \"<object>\",\n  \"environment_variables\": \"<object>\",\n  \"state\": \"<object>\",\n  \"streaming_job\": \"<boolean>\",\n  \"ignore_parallel_jobs\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "33904683-5607-4695-a8b9-a5094cb986df",
+      "name": "Discover",
+      "description": {
+        "content": "Trigger and poll connector discovery.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a3a1e7e-6dc6-4243-9b12-75660d339272",
+          "name": "Trigger connector discovery",
+          "request": {
+            "name": "Trigger connector discovery",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors",
+                "discover"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "connector_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "v2_source",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ca6e984-5fd6-40bf-af82-6ab393609a05",
+              "name": "Catalog of available tables and fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "v2_source",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25400936-ddb4-4bb2-8cf7-da59e36c0a8c",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "discover"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "v2_source",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe4bb9ef-8c17-47ab-9ffb-ba6966ab096c",
+          "name": "Poll discover status",
+          "request": {
+            "name": "Poll discover status",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "linkedConnectors",
+                "discover",
+                "poll"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "connector_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f86bbfc-b47c-4432-8f8a-726be4bf670d",
+              "name": "Discover status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "discover",
+                    "poll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"RUNNING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49a7a018-76a9-4a88-b4e4-bace86d62750",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "linkedConnectors",
+                    "discover",
+                    "poll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "connector_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hotglue.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1155b31e-eb6e-4408-89e0-8d70d097b8ce",
+    "name": "Hotglue API V2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.\n\nContact Support:\n Name: Hotglue Support",
+      "type": "text/plain"
+    }
+  }
+}

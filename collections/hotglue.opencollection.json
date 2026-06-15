@@ -1,0 +1,481 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hotglue API V2",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Linked Connectors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve linked connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "config",
+                "value": "",
+                "type": "query",
+                "description": "Request the underlying config for the linked source."
+              },
+              {
+                "name": "catalog",
+                "value": "",
+                "type": "query",
+                "description": "Request the catalog of available fields."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "JWT token from private signing key."
+              }
+            ]
+          },
+          "docs": "Retrieve linked connectors"
+        },
+        {
+          "info": {
+            "name": "Link a connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link a connector"
+        },
+        {
+          "info": {
+            "name": "Update a linked connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a linked connector"
+        },
+        {
+          "info": {
+            "name": "Unlink a connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Unlink a connector"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Discover",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Trigger connector discovery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors/discover",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "v2_source",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Trigger connector discovery"
+        },
+        {
+          "info": {
+            "name": "Poll discover status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors/discover/poll",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Poll discover status"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connector State",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve connector state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors/state",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve connector state"
+        },
+        {
+          "info": {
+            "name": "Set connector state",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors/state",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set connector state"
+        },
+        {
+          "info": {
+            "name": "Delete connector state",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/linkedConnectors/state",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete connector state"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/:tenant/jobs",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              },
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Tenant identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run a job"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connector Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve available connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hotglue.com/v2/:env_id/availableConnectors",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve available connectors"
+        },
+        {
+          "info": {
+            "name": "Retrieve supported connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.hotglue.com/v2/:env_id/:flow_id/supportedConnectors",
+            "params": [
+              {
+                "name": "env_id",
+                "value": "",
+                "type": "path",
+                "description": "Environment identifier."
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve supported connectors"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
