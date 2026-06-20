@@ -6,7 +6,7 @@ description: >-
   programmatic configuration management, detailed job logs, webhooks, and observability integrations. Hotglue allows
   developers to build flexible, scalable integrations without the lock-in of traditional iPaaS tools.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Connectors
   - Embedded Integrations
