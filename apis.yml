@@ -65,13 +65,13 @@ common:
     url: https://hotglue.com/pricing
   - type: Blog
     url: https://hotglue.com/blog/
-  - type: Connectors
+  - type: Integrations
     url: https://hotglue.com/connectors/
-  - type: SignUp
+  - type: Signup
     url: https://hotglue.com/signup
   - type: Login
     url: https://hotglue.com/login
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://hotglue.com/llms.txt
 maintainers:
   - FN: Kin Lane
