@@ -53,6 +53,14 @@ apis:
       - type: Documentation
         url: https://docs.hotglue.com/api-reference/v1/introduction
 common:
+  - type: TrustCenter
+    url: security/hotglue-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/hotglue-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/hotglue-domain-security.yml
+  - type: Authentication
+    url: authentication/hotglue-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/hotgluexyz
   - type: LinkedIn
