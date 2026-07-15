@@ -1,0 +1,172 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/hotglue-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 12
+  by_action_class:
+    connected: 6
+    acting: 6
+  by_consequence:
+    read: 6
+    write: 6
+  human_in_the_loop_required: 0
+operations:
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+  method: get
+  operationId: getLinkedConnectors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+  method: post
+  operationId: linkConnector
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+  method: patch
+  operationId: updateLinkedConnector
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors
+  method: delete
+  operationId: unlinkConnector
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover
+  method: get
+  operationId: triggerDiscover
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover/poll
+  method: get
+  operationId: pollDiscover
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+  method: get
+  operationId: getConnectorState
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+  method: put
+  operationId: setConnectorState
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/state
+  method: delete
+  operationId: deleteConnectorState
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/{env_id}/{flow_id}/{tenant}/jobs
+  method: post
+  operationId: runJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/{env_id}/availableConnectors
+  method: get
+  operationId: listAvailableConnectors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/{env_id}/{flow_id}/supportedConnectors
+  method: get
+  operationId: listSupportedConnectors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

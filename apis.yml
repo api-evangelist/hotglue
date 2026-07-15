@@ -53,6 +53,8 @@ apis:
       - type: Documentation
         url: https://docs.hotglue.com/api-reference/v1/introduction
 common:
+  - type: AgenticAccess
+    url: agentic-access/hotglue-agentic-access.yml
   - type: TrustCenter
     url: security/hotglue-trust-center.yml
   - type: VulnerabilityDisclosure
