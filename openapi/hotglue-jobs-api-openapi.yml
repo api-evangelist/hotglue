@@ -1,0 +1,168 @@
+openapi: 3.1.0
+info:
+  title: Hotglue API V2 Connector Metadata Jobs API
+  description: The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.
+  version: '2.0'
+  contact:
+    name: Hotglue Support
+    url: https://docs.hotglue.com
+servers:
+- url: https://api.hotglue.com
+  description: Hotglue Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Jobs
+  description: Run jobs for linked connectors.
+paths:
+  /v2/{env_id}/{flow_id}/{tenant}/jobs:
+    parameters:
+    - $ref: '#/components/parameters/EnvId'
+    - $ref: '#/components/parameters/FlowId'
+    - $ref: '#/components/parameters/Tenant'
+    post:
+      tags:
+      - Jobs
+      summary: Run a job
+      operationId: runJob
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunJobRequest'
+      responses:
+        '200':
+          description: Job created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  parameters:
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Flow identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
+    Tenant:
+      name: tenant
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Tenant identifier.
+  schemas:
+    RunJobRequest:
+      type: object
+      required:
+      - connector_id
+      - job_type
+      properties:
+        connector_id:
+          type: string
+        job_type:
+          type: string
+          enum:
+          - read
+          - write
+        job_name:
+          type: string
+        override_start_date:
+          type: string
+        override_end_date:
+          type: string
+        reset_source_state:
+          type: boolean
+        override_selected_tables:
+          type: array
+          items:
+            type: string
+        override_source_config:
+          type: object
+        override_target_config:
+          type: object
+        override_connector_config:
+          type: object
+        override_field_map:
+          type: object
+        environment_variables:
+          type: object
+        state:
+          type: object
+        streaming_job:
+          type: boolean
+        ignore_parallel_jobs:
+          type: boolean
+    Job:
+      type: object
+      properties:
+        job_id:
+          type: string
+        env_id:
+          type: string
+        flow_id:
+          type: string
+        job_name:
+          type: string
+        tenant:
+          type: string
+        started_by:
+          type: string
+        s3_root:
+          type: string
+        start_time:
+          type: string
+        state:
+          type: object
+        tap:
+          type: string
+        status:
+          type: string
+          enum:
+          - JOB_CREATED
+          - DISCOVER_STARTED
+          - DISCOVER_FAILED
+          - SYNC_STARTED
+          - SYNC_FAILED
+          - SYNC_SUCCESS
+          - ETL_STARTED
+          - ETL_FAILED
+          - ETL_SUCCESS
+          - EXPORT_STARTED
+          - EXPORT_FAILED
+          - JOB_COMPLETED
+        scheduled_job:
+          type: boolean
+        message:
+          type: string
+        last_updated:
+          type: string
+        processed_rows:
+          type: integer
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            type: object
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+externalDocs:
+  description: Hotglue API Reference v2
+  url: https://docs.hotglue.com/api-reference/v2

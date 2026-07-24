@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Hotglue API V2 Connector Metadata Discover API
+  description: The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.
+  version: '2.0'
+  contact:
+    name: Hotglue Support
+    url: https://docs.hotglue.com
+servers:
+- url: https://api.hotglue.com
+  description: Hotglue Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Discover
+  description: Trigger and poll connector discovery.
+paths:
+  /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover:
+    parameters:
+    - $ref: '#/components/parameters/EnvId'
+    - $ref: '#/components/parameters/FlowId'
+    - $ref: '#/components/parameters/Tenant'
+    get:
+      tags:
+      - Discover
+      summary: Trigger connector discovery
+      operationId: triggerDiscover
+      parameters:
+      - name: connector_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: v2_source
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Catalog of available tables and fields.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v2/{env_id}/{flow_id}/{tenant}/linkedConnectors/discover/poll:
+    parameters:
+    - $ref: '#/components/parameters/EnvId'
+    - $ref: '#/components/parameters/FlowId'
+    - $ref: '#/components/parameters/Tenant'
+    get:
+      tags:
+      - Discover
+      summary: Poll discover status
+      operationId: pollDiscover
+      parameters:
+      - name: connector_id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Discover status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    nullable: true
+                    example: RUNNING
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            type: object
+  parameters:
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Flow identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
+    Tenant:
+      name: tenant
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Tenant identifier.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+externalDocs:
+  description: Hotglue API Reference v2
+  url: https://docs.hotglue.com/api-reference/v2

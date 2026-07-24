@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Hotglue API V2 Connector Metadata API
+  description: The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.
+  version: '2.0'
+  contact:
+    name: Hotglue Support
+    url: https://docs.hotglue.com
+servers:
+- url: https://api.hotglue.com
+  description: Hotglue Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Connector Metadata
+  description: Retrieve available and supported connectors.
+paths:
+  /v2/{env_id}/availableConnectors:
+    get:
+      tags:
+      - Connector Metadata
+      summary: Retrieve available connectors
+      operationId: listAvailableConnectors
+      parameters:
+      - $ref: '#/components/parameters/EnvId'
+      responses:
+        '200':
+          description: Array of available connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v2/{env_id}/{flow_id}/supportedConnectors:
+    get:
+      tags:
+      - Connector Metadata
+      summary: Retrieve supported connectors
+      operationId: listSupportedConnectors
+      parameters:
+      - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/FlowId'
+      responses:
+        '200':
+          description: Array of supported connectors.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            type: object
+  parameters:
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Flow identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+externalDocs:
+  description: Hotglue API Reference v2
+  url: https://docs.hotglue.com/api-reference/v2
