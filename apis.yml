@@ -6,7 +6,20 @@ description: >-
   programmatic configuration management, detailed job logs, webhooks, and observability integrations. Hotglue allows
   developers to build flexible, scalable integrations without the lock-in of traditional iPaaS tools.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hotglue.png
 tags:
   - Connectors
   - Embedded Integrations
@@ -18,40 +31,99 @@ created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: hotglue:hotglue-api-v2
-    name: Hotglue API V2
-    description: >-
-      The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow
-      configurations, job execution, tenant management, and connector state for SaaS product integrations.
-    humanURL: https://docs.hotglue.com/api-reference/v2
-    baseURL: https://api.hotglue.com
-    tags:
-      - Connectors
-      - Embedded Integrations
-      - ETL
-      - Integration Platform
-    properties:
-      - type: Documentation
-        url: https://docs.hotglue.com/
-      - type: APIReference
-        url: https://docs.hotglue.com/api-reference/v2
-      - type: GettingStarted
-        url: https://docs.hotglue.com/getting-started
-      - type: OpenAPI
-        url: openapi/hotglue-openapi.yml
-  - aid: hotglue:hotglue-api-v1
-    name: Hotglue API V1
-    description: >-
-      The Hotglue API v1 provides the original REST API for managing integration flows, linked sources, linked targets,
-      source state, and job execution.
-    humanURL: https://docs.hotglue.com/api-reference/v1/introduction
-    baseURL: https://api.hotglue.com
-    tags:
-      - Embedded Integrations
-      - Integration Platform
-    properties:
-      - type: Documentation
-        url: https://docs.hotglue.com/api-reference/v1/introduction
+- aid: hotglue:hotglue-api-v1
+  name: Hotglue API V1
+  description: >-
+    The Hotglue API v1 provides the original REST API for managing integration flows, linked sources,
+    linked targets, source state, and job execution.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Embedded Integrations
+  - Integration Platform
+  properties:
+  - type: Documentation
+    url: https://docs.hotglue.com/api-reference/v1/introduction
+- aid: hotglue:hotglue-connector-metadata-api
+  name: Hotglue Connector Metadata API
+  description: Retrieve available and supported connectors.
+  humanURL: https://docs.hotglue.com/api-reference/v2
+  baseURL: https://api.hotglue.com
+  tags:
+  - Connector Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-connector-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-connector-state-api
+  name: Hotglue Connector State API
+  description: Manage bookmark and sync state for linked connectors.
+  humanURL: https://docs.hotglue.com/api-reference/v2
+  baseURL: https://api.hotglue.com
+  tags:
+  - Connector State
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-connector-state-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-discover-api
+  name: Hotglue Discover API
+  description: Trigger and poll connector discovery.
+  humanURL: https://docs.hotglue.com/api-reference/v2
+  baseURL: https://api.hotglue.com
+  tags:
+  - Discover
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-discover-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-jobs-api
+  name: Hotglue Jobs API
+  description: Run jobs for linked connectors.
+  humanURL: https://docs.hotglue.com/api-reference/v2
+  baseURL: https://api.hotglue.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-linked-connectors-api
+  name: Hotglue Linked Connectors API
+  description: Create, retrieve, update, and delete linked connectors for a tenant.
+  humanURL: https://docs.hotglue.com/api-reference/v2
+  baseURL: https://api.hotglue.com
+  tags:
+  - Linked Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-linked-connectors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
 common:
   - type: AgenticAccess
     url: agentic-access/hotglue-agentic-access.yml
