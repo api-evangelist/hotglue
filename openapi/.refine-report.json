@@ -1,0 +1,22 @@
+{
+  "provider": "hotglue",
+  "sources": [
+    "hotglue-connector-metadata-api-openapi.yml",
+    "hotglue-connector-state-api-openapi.yml",
+    "hotglue-discover-api-openapi.yml",
+    "hotglue-jobs-api-openapi.yml",
+    "hotglue-linked-connectors-api-openapi.yml"
+  ],
+  "outputs": [
+    "hotglue-connector-metadata-api-openapi.yml",
+    "hotglue-connector-state-api-openapi.yml",
+    "hotglue-discover-api-openapi.yml",
+    "hotglue-jobs-api-openapi.yml",
+    "hotglue-linked-connectors-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
