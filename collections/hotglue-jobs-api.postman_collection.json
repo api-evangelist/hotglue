@@ -1,0 +1,274 @@
+{
+  "item": [
+    {
+      "id": "1bba5b43-9e38-4f00-ad28-762680fc27e6",
+      "name": "Jobs",
+      "description": {
+        "content": "Run jobs for linked connectors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "87627675-33bd-480e-a2b7-b08929724580",
+          "name": "Run a job",
+          "request": {
+            "name": "Run a job",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                ":env_id",
+                ":flow_id",
+                ":tenant",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "env_id",
+                  "description": "(Required) Environment identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "flow_id",
+                  "description": "(Required) Flow identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Tenant identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connector_id\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"job_name\": \"<string>\",\n  \"override_start_date\": \"<string>\",\n  \"override_end_date\": \"<string>\",\n  \"reset_source_state\": \"<boolean>\",\n  \"override_selected_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"override_source_config\": \"<object>\",\n  \"override_target_config\": \"<object>\",\n  \"override_connector_config\": \"<object>\",\n  \"override_field_map\": \"<object>\",\n  \"environment_variables\": \"<object>\",\n  \"state\": \"<object>\",\n  \"streaming_job\": \"<boolean>\",\n  \"ignore_parallel_jobs\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "526643df-e8ff-401b-bbba-ccdb33f52a48",
+              "name": "Job created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector_id\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"job_name\": \"<string>\",\n  \"override_start_date\": \"<string>\",\n  \"override_end_date\": \"<string>\",\n  \"reset_source_state\": \"<boolean>\",\n  \"override_selected_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"override_source_config\": \"<object>\",\n  \"override_target_config\": \"<object>\",\n  \"override_connector_config\": \"<object>\",\n  \"override_field_map\": \"<object>\",\n  \"environment_variables\": \"<object>\",\n  \"state\": \"<object>\",\n  \"streaming_job\": \"<boolean>\",\n  \"ignore_parallel_jobs\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"string\",\n  \"env_id\": \"string\",\n  \"flow_id\": \"string\",\n  \"job_name\": \"string\",\n  \"tenant\": \"string\",\n  \"started_by\": \"string\",\n  \"s3_root\": \"string\",\n  \"start_time\": \"string\",\n  \"state\": {},\n  \"tap\": \"string\",\n  \"status\": \"JOB_COMPLETED\",\n  \"scheduled_job\": true,\n  \"message\": \"string\",\n  \"last_updated\": \"string\",\n  \"processed_rows\": 1902\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "165196d8-31e9-4174-b46b-27b9f34b3415",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":env_id",
+                    ":flow_id",
+                    ":tenant",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "env_id",
+                      "description": "(Required) Environment identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "flow_id",
+                      "description": "(Required) Flow identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Tenant identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connector_id\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"job_name\": \"<string>\",\n  \"override_start_date\": \"<string>\",\n  \"override_end_date\": \"<string>\",\n  \"reset_source_state\": \"<boolean>\",\n  \"override_selected_tables\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"override_source_config\": \"<object>\",\n  \"override_target_config\": \"<object>\",\n  \"override_connector_config\": \"<object>\",\n  \"override_field_map\": \"<object>\",\n  \"environment_variables\": \"<object>\",\n  \"state\": \"<object>\",\n  \"streaming_job\": \"<boolean>\",\n  \"ignore_parallel_jobs\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.hotglue.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3f914ffb-0089-45d5-873f-4bcc118039e7",
+    "name": "Hotglue API V2 Connector Metadata Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.\n\nContact Support:\n Name: Hotglue Support",
+      "type": "text/plain"
+    }
+  }
+}
