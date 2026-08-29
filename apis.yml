@@ -6,6 +6,18 @@ description: >-
   programmatic configuration management, detailed job logs, webhooks, and observability integrations. Hotglue allows
   developers to build flexible, scalable integrations without the lock-in of traditional iPaaS tools.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
