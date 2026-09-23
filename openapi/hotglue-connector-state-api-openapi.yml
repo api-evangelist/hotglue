@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hotglue API V2 Connector Metadata Connector State API
+  title: Hotglue API V2 Connector State API
   description: The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.
   version: '2.0'
   contact:
@@ -96,20 +96,6 @@ components:
           schema:
             type: object
   parameters:
-    FlowId:
-      name: flow_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Flow identifier.
-    EnvId:
-      name: env_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Environment identifier.
     Tenant:
       name: tenant
       in: path
@@ -117,6 +103,20 @@ components:
       schema:
         type: string
       description: Tenant identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Flow identifier.
   schemas:
     ConnectorState:
       type: object
