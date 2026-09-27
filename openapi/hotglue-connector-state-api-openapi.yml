@@ -83,14 +83,14 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   responses:
-    EmptyOk:
-      description: Successful empty response.
+    BadRequest:
+      description: Bad request.
       content:
         application/json:
           schema:
             type: object
-    BadRequest:
-      description: Bad request.
+    EmptyOk:
+      description: Successful empty response.
       content:
         application/json:
           schema:
@@ -103,13 +103,6 @@ components:
       schema:
         type: string
       description: Tenant identifier.
-    EnvId:
-      name: env_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Environment identifier.
     FlowId:
       name: flow_id
       in: path
@@ -117,6 +110,13 @@ components:
       schema:
         type: string
       description: Flow identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
   schemas:
     ConnectorState:
       type: object

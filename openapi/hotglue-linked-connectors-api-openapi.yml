@@ -102,7 +102,74 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            type: object
+    EmptyOk:
+      description: Successful empty response.
+      content:
+        application/json:
+          schema:
+            type: object
+  parameters:
+    Tenant:
+      name: tenant
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Tenant identifier.
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Flow identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
   schemas:
+    UpdateLinkedConnectorRequest:
+      type: object
+      required:
+      - connector_id
+      properties:
+        connector_id:
+          type: string
+        field_map:
+          type: object
+        config:
+          type: object
+    LinkedConnector:
+      type: object
+      properties:
+        tap:
+          type: string
+        domain:
+          type: string
+        label:
+          type: string
+        tap_url:
+          type: string
+        auth_url:
+          type: string
+        icon:
+          type: string
+        type:
+          type: string
+        client_id:
+          type: string
+        fieldMap:
+          type: object
     LinkConnectorRequest:
       type: object
       required:
@@ -138,73 +205,6 @@ components:
               - DISABLED
         field_map:
           type: object
-    LinkedConnector:
-      type: object
-      properties:
-        tap:
-          type: string
-        domain:
-          type: string
-        label:
-          type: string
-        tap_url:
-          type: string
-        auth_url:
-          type: string
-        icon:
-          type: string
-        type:
-          type: string
-        client_id:
-          type: string
-        fieldMap:
-          type: object
-    UpdateLinkedConnectorRequest:
-      type: object
-      required:
-      - connector_id
-      properties:
-        connector_id:
-          type: string
-        field_map:
-          type: object
-        config:
-          type: object
-  responses:
-    EmptyOk:
-      description: Successful empty response.
-      content:
-        application/json:
-          schema:
-            type: object
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            type: object
-  parameters:
-    Tenant:
-      name: tenant
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Tenant identifier.
-    EnvId:
-      name: env_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Environment identifier.
-    FlowId:
-      name: flow_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Flow identifier.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
