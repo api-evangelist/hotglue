@@ -55,13 +55,6 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  responses:
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            type: object
   parameters:
     EnvId:
       name: env_id
@@ -77,6 +70,13 @@ components:
       schema:
         type: string
       description: Flow identifier.
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            type: object
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
