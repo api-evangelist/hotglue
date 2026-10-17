@@ -83,20 +83,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   parameters:
-    EnvId:
-      name: env_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Environment identifier.
-    FlowId:
-      name: flow_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Flow identifier.
     Tenant:
       name: tenant
       in: path
@@ -104,6 +90,20 @@ components:
       schema:
         type: string
       description: Tenant identifier.
+    FlowId:
+      name: flow_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Flow identifier.
+    EnvId:
+      name: env_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Environment identifier.
   responses:
     EmptyOk:
       description: Successful empty response.
