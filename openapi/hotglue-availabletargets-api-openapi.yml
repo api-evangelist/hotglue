@@ -1,0 +1,161 @@
+openapi: 3.2.0
+info:
+  title: hotglue Available Targets API
+  version: '1.2'
+servers:
+- url: https://api.hotglue.com
+security:
+- sec0: []
+tags:
+- name: AvailableTargets
+paths:
+  /{env_id}/availableTargets:
+    get:
+      summary: Available targets
+      description: Returns details for every target that you can enable in your environment
+      operationId: available-targets-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - target: s3
+                    flowType: all
+                    domain: aws.amazon.com
+                    label: AWS S3
+                    type: iam
+                    icon: https://s3.amazonaws.com/cdn.hotglue.xyz/images/logos/s3.svg
+                    connect_ui_params:
+                      aws_access_key_id:
+                        label: AWS Access Key Id
+                        description: Access Key Id for IAM role
+                      aws_secret_access_key:
+                        label: AWS Secret Access Key
+                        description: Secret Access Key for IAM Role
+                        type: password
+                      bucket:
+                        label: Bucket Name
+                        description: Which S3 bucket do you want to use?
+                      path_prefix:
+                        label: Bucket Path Prefix
+                        description: Where should output files go?
+                      acl:
+                        label: ACL
+                        description: ACL to use for uploaded objects (optional)
+                        required: false
+                      sse:
+                        label: Server Side Encryption
+                        type: boolean
+                        description: Toggle S3 SSE encryption (AES256)
+                        required: false
+                  - target: mailgun
+                    flowType: all
+                    domain: mailgun.com
+                    label: Mailgun
+                    type: api
+                    icon: https://s3.amazonaws.com/cdn.hotglue.xyz/images/logos/mailgun.svg
+                    connect_ui_params:
+                      api_key:
+                        label: API Key
+                        description: Mailgun API Key
+                        type: password
+                      domain:
+                        label: Domain
+                        description: Mailgun Domain
+                      email:
+                        label: Email
+                        description: Email to send data to
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    target:
+                      type: string
+                      example: shopify
+                    tags:
+                      type: array
+                      items:
+                        type: string
+                        example: ecommerce
+                    domain:
+                      type: string
+                      example: shopify.com
+                    label:
+                      type: string
+                      example: Shopify
+                    type:
+                      type: string
+                      example: api
+                    icon:
+                      type: string
+                      example: https://s3.amazonaws.com/cdn.hotglue.xyz/images/logos/shopify.svg
+                    auto_support:
+                      type: boolean
+                      example: true
+                      default: true
+                    connect_ui_params:
+                      type: object
+                      properties:
+                        api_key:
+                          type: object
+                          properties:
+                            label:
+                              type: string
+                              example: API Key
+                            description:
+                              type: string
+                              example: Shopify API Key
+                            type:
+                              type: string
+                              example: password
+                        shop:
+                          type: object
+                          properties:
+                            label:
+                              type: string
+                              example: Shop
+                            description:
+                              type: string
+                              example: Shopify shop name (ie. the value test_shop in the string https://test_shop.myshopify.com)
+                    config:
+                      type: object
+                      properties:
+                        start_date:
+                          type: string
+                          example: '2015-01-01T00:00:00.000Z'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - AvailableTargets
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: x-api-key
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true

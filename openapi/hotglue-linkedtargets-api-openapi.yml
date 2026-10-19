@@ -1,0 +1,547 @@
+openapi: 3.2.0
+info:
+  title: hotglue Linked Targets API
+  version: '1.2'
+servers:
+- url: https://api.hotglue.com
+security:
+- sec0: []
+tags:
+- name: LinkedTargets
+paths:
+  /{env_id}/{flow_id}/{tenant}/linkedTargets:
+    post:
+      summary: Link a target
+      description: Link one of your tenants to a target
+      operationId: linked-targets-create
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - target
+              properties:
+                target:
+                  type: object
+                  description: The target & settings info you wish to link
+                  required:
+                  - target
+                  properties:
+                    target:
+                      type: string
+                      description: The name of the connector you want to link
+                    symlink:
+                      type: object
+                      description: Symlink allows you to share credentials with an existing connection in another flow
+                      properties:
+                        entity:
+                          type: string
+                          description: The name of the connector that is already linked
+                        id:
+                          type: string
+                          description: The previously linked flow_id containing a user's credentials
+                        tenant:
+                          type: string
+                          description: Optional. If using subtenants, the tenant id that has the linked connector.
+                    config:
+                      type: object
+                      description: This JSON object holds credentials and flags to create a connection.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedTargets
+    delete:
+      summary: Unlink a target
+      description: Clears the configuration for a tenant's linked target. This cannot be undone.
+      operationId: linked-targets-delete
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: target_name
+        in: query
+        description: Target name (ie. `s3`)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedTargets
+    get:
+      summary: Retrieve linked target
+      description: Fetch metadata about your tenant's linked target
+      operationId: linked-targets-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: target_name
+        in: query
+        description: Target name (ie. `s3`). If not included, all linked targets are returned
+        schema:
+          type: string
+      - name: login_state
+        in: query
+        description: Pings to see if connection is active. Only possible for OAuth targets
+        schema:
+          type: boolean
+          default: false
+      - name: catalog
+        in: query
+        description: Request the catalog of available fields/data to be returned in the payload
+        schema:
+          type: boolean
+      - name: config
+        in: query
+        description: Request the underlying config for the linked target
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - target: s3
+                    domain: aws.amazon.com
+                    label: S3
+                    type: api
+                    config: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedTargets
+    patch:
+      summary: Update a linked target
+      description: Modify the config object on a linkedTarget
+      operationId: update-linked-targets
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - target
+              properties:
+                target:
+                  type: string
+                  description: Name of tap to update
+                config:
+                  type: object
+                  description: JSON object containing config values to update
+                delete_fields:
+                  type: array
+                  items:
+                    type: string
+                  required: false
+                  description: List of configuration fields to delete
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedTargets
+  /{env_id}/{flow_id}/{tenant}/linkedTargets/discover:
+    get:
+      summary: Run Discover
+      description: Run a discover for a linked target
+      operationId: linked-targets-catalog-discover
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: target_name
+        in: query
+        description: Name of target to discover
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedTargets
+  /v2/{env_id}/{flow_id}/{tenant}/linkedTargets:
+    patch:
+      summary: Update linked target
+      description: Update a linked target
+      operationId: linked-targets-update
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                target_id:
+                  type: string
+                  description: ID of the target to link
+                config:
+                  type: object
+                  description: Configuration for the target
+                delete_fields:
+                  type: array
+                  items:
+                    type: string
+                  required: false
+                  description: List of configuration fields to delete
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - LinkedTargets
+    get:
+      summary: Get linked targets
+      description: Returns the targets linked by a user_id in this env_id
+      operationId: linked-targets-get-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: target_name
+        in: query
+        description: Name of the specific target to check
+        schema:
+          type: string
+      - name: token
+        in: query
+        description: JWT token for authentication
+        schema:
+          type: string
+      - name: login_state
+        in: query
+        description: Request the login state for the linked target
+        schema:
+          type: boolean
+      - name: config
+        in: query
+        description: Request the underlying config for the linked target
+        schema:
+          type: boolean
+      - name: catalog
+        in: query
+        description: Request the catalog of available fields/data to be returned in the payload
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: []
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - LinkedTargets
+    delete:
+      summary: Unlink a target
+      description: Permanently delete your tenant's linked target connection. This will revoke OAuth credentials and remove the target configuration. This cannot be undone.
+      operationId: linked-targets-delete-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: target_id
+        in: query
+        description: ID of the target to unlink
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    status: ok
+                    message: The target target_id was unlinked successfully.
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  message:
+                    type: string
+                    example: The target target_id was unlinked successfully.
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedTargets
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: x-api-key
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true

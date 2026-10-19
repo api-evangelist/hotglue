@@ -1,0 +1,81 @@
+openapi: 3.2.0
+info:
+  title: hotglue Magic Link API
+  version: '1.2'
+servers:
+- url: https://api.hotglue.com
+security:
+- sec0: []
+tags:
+- name: Magic Link
+paths:
+  /{env_id}/magicLink:
+    post:
+      summary: Create a Magic Link
+      description: Create a Magic Link to allow tenants to link an integration.
+      operationId: create-magic-link
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenant:
+                  type: string
+                  nullable: true
+                flow:
+                  type: string
+                  nullable: true
+                entityId:
+                  type: string
+                  nullable: true
+                type:
+                  type: string
+                  nullable: true
+                expiresAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: Optional expiration timestamp for the Magic Link.
+                options:
+                  type: object
+                  additionalProperties: true
+              additionalProperties: true
+      responses:
+        '200':
+          description: Magic Link created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                  expiresAt:
+                    type: string
+                    format: date-time
+                    nullable: true
+                additionalProperties: true
+      tags:
+      - Magic Link
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: x-api-key
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true

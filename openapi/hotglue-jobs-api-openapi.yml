@@ -1,93 +1,1413 @@
 openapi: 3.2.0
 info:
-  title: Hotglue API V2 Jobs API
-  description: The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.
-  version: '2.0'
-  contact:
-    name: Hotglue Support
-    url: https://docs.hotglue.com
+  title: hotglue Jobs API
+  version: '1.2'
 servers:
 - url: https://api.hotglue.com
-  description: Hotglue Production API
 security:
-- ApiKeyAuth: []
+- sec0: []
 tags:
 - name: Jobs
-  description: Run jobs for linked connectors.
 paths:
-  /v2/{env_id}/{flow_id}/{tenant}/jobs:
-    parameters:
-    - $ref: '#/components/parameters/EnvId'
-    - $ref: '#/components/parameters/FlowId'
-    - $ref: '#/components/parameters/Tenant'
-    post:
+  /{env_id}/{flow}/{user_id}/jobs/queued:
+    get:
+      summary: Fetch queued jobs
+      description: Returns queued jobs for a specific environment, flow, and user/tenant.
+      operationId: queued-jobs-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: user_id
+        in: path
+        description: ID of user/tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    queued_jobs:
+                    - id: 101
+                      env_id: test-env
+                      tenant_id: tenant-123
+                      flow_id: customer-sync
+                      status: QUEUED
+                      created_at: '2026-01-02T03:04:05+00:00'
+                      updated_at: '2026-01-02T03:05:06+00:00'
+                      job_name: Nightly customer sync
+                      override_start_date: '2026-01-01T00:00:00Z'
+                      override_end_date: null
+                      override_selected_tables:
+                        customer: true
+                        orders: false
+                      override_field_map: null
+                      override_env_vars:
+                        DEBUG: 'true'
+                      override_source_config: null
+                      override_target_config: null
+                      override_connector_config: null
+                      override_lifecycle_webhook:
+                        url: https://example.com
+                        secret: some-secret
+              schema:
+                $ref: '#/components/schemas/QueuedJobsResponse'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
       tags:
       - Jobs
-      summary: Run a job
-      operationId: runJob
+  /{env_id}/jobs/queued:
+    get:
+      summary: Fetch environment queued jobs
+      description: Returns queued jobs for an environment across flows/users.
+      operationId: environment-queued-jobs-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    queued_jobs:
+                    - id: 101
+                      env_id: test-env
+                      tenant_id: tenant-123
+                      flow_id: customer-sync
+                      status: QUEUED
+                      created_at: '2026-01-02T03:04:05+00:00'
+                      updated_at: '2026-01-02T03:05:06+00:00'
+                      job_name: Nightly customer sync
+                      override_start_date: '2026-01-01T00:00:00Z'
+                      override_end_date: null
+                      override_selected_tables:
+                        customer: true
+                        orders: false
+                      override_field_map: null
+                      override_env_vars:
+                        DEBUG: 'true'
+                      override_source_config: null
+                      override_target_config: null
+                      override_connector_config: null
+                      override_lifecycle_webhook:
+                        url: https://example.com
+                        secret: some-secret
+              schema:
+                $ref: '#/components/schemas/QueuedJobsResponse'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow}/{user_id}/jobs/queued/{queued_job_id}:
+    delete:
+      summary: Cancel queued job
+      description: Cancels a queued job.
+      operationId: queued-job-cancel
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: user_id
+        in: path
+        description: ID of user/tenant
+        schema:
+          type: string
+        required: true
+      - name: queued_job_id
+        in: path
+        description: ID of queued job
+        schema:
+          oneOf:
+          - type: string
+          - type: integer
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    id: 101
+                    env_id: test-env
+                    tenant_id: tenant-123
+                    flow_id: customer-sync
+                    status: QUEUED
+                    created_at: '2026-01-02T03:04:05+00:00'
+                    updated_at: '2026-01-02T03:05:06+00:00'
+                    job_name: Nightly customer sync
+                    override_start_date: '2026-01-01T00:00:00Z'
+                    override_end_date: null
+                    override_selected_tables:
+                      customer: true
+                      orders: false
+                    override_field_map: null
+                    override_env_vars:
+                      DEBUG: 'true'
+                    override_source_config: null
+                    override_target_config: null
+                    override_connector_config: null
+                    override_lifecycle_webhook:
+                      url: https://example.com
+                      secret: some-secret
+              schema:
+                $ref: '#/components/schemas/QueuedJob'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    Code: BadRequestError
+                    Message: Queued job not found
+              schema:
+                type: object
+                properties:
+                  Code:
+                    type: string
+                    example: BadRequestError
+                  Message:
+                    type: string
+                    example: Queued job not found
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/latest:
+    get:
+      summary: Get latest job
+      description: Fetch the most recent job for a given tenant in a given flow
+      operationId: jobs-latest
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    job_id: lmaEbA
+                    env_id: dev.example-env.hotglue.xyz
+                    job_name: test_job:_V-vgdlLN
+                    tenant: default
+                    started_by: default
+                    flow: l8odS2mce
+                    s3_root: default/flows/l8odS2mce/jobs/lmaEbA
+                    start_time: '2020-12-30T18:01:01.828266+00:00'
+                    state: {}
+                    tap: quickbooks:sandbox
+                    status: ETL_FAILED
+                    message: ETL error...
+                    last_updated: '2020-12-30T20:31:00.081282+00:00'
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: string
+                    example: lmaEbA
+                  env_id:
+                    type: string
+                    example: dev.example-env.hotglue.xyz
+                  job_name:
+                    type: string
+                    example: test_job:_V-vgdlLN
+                  tenant:
+                    type: string
+                    example: default
+                  started_by:
+                    type: string
+                    example: default
+                  flow:
+                    type: string
+                    example: l8odS2mce
+                  s3_root:
+                    type: string
+                    example: default/flows/l8odS2mce/jobs/lmaEbA
+                  start_time:
+                    type: string
+                    example: '2020-12-30T18:01:01.828266+00:00'
+                  state:
+                    type: object
+                    properties: {}
+                  tap:
+                    type: string
+                    example: quickbooks:sandbox
+                  status:
+                    type: string
+                    example: ETL_FAILED
+                    enum:
+                    - JOB_CREATED
+                    - DISCOVER_STARTED
+                    - DISCOVER_FAILED
+                    - SYNC_STARTED
+                    - SYNC_FAILED
+                    - SYNC_SUCCESS
+                    - ETL_STARTED
+                    - ETL_FAILED
+                    - ETL_SUCCESS
+                    - EXPORT_STARTED
+                    - EXPORT_FAILED
+                    - JOB_COMPLETED
+                  message:
+                    type: string
+                    example: ETL error...
+                  last_updated:
+                    type: string
+                    example: '2020-12-30T20:31:00.081282+00:00'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs:
+    post:
+      summary: Run a V1 job
+      description: Kicks off a job for a given tenant. When using the API tap, you can pass a payload in the `state` object to be written to the target. When `queue_if_active_job` is set to true in the request body, hotglue queues the job if another job is already running for the same tenant or flow.
+      operationId: jobs-create
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: object
+                  description: Pass extra context to be used in the job. Often used with the unified schema for write jobs. Note that this is different from the source state.
+                tap:
+                  type: string
+                  description: The source of the job. For write jobs, this is usually "api."
+                job_name:
+                  type: string
+                  description: Name for job. If not provided, name is autogenerated
+                external_job_id:
+                  type: string
+                  description: External job ID for job. This is used to link the job to an external system.
+                override_start_date:
+                  type: string
+                  description: Date to start syncing data from (e.g. 2022-08-08T00:00:00.000Z)
+                  format: date-time
+                override_selected_filters:
+                  type: object
+                  description: Override the selected filters for this job only. Uses the same format as the selected filters configuration and does not affect the saved selection.
+                  required:
+                  - filters_version
+                  - streams
+                  properties:
+                    filters_version:
+                      type: string
+                      description: The version of the filters configuration
+                    streams:
+                      type: object
+                      description: The streams and their filters
+                      additionalProperties:
+                        type: object
+                reset_source_state:
+                  type: boolean
+                  description: Runs the job as a "full_sync" by clearing the `state` on the linkedSource
+                streaming_job:
+                  type: boolean
+                  description: If true, the job will run in streaming mode and skip the ETL step. This feature is in beta.
+                override_selected_tables:
+                  type: object
+                  description: For use with the unified schema. Define a temporary selection of unified schema objects to override the default selection. Does not affect your selection for future jobs. E.G. `{"Vendors":true}`
+                override_field_map:
+                  type: object
+                  description: Define a temporary field map to be used in the job, different from the configured field map.
+                override_end_date:
+                  type: string
+                  description: Date to sync data until (e.g. 2022-08-08T00:00:00.000Z). Note that `end_date` is only supported for certain connectors.
+                  format: date-time
+                override_source_config:
+                  type: object
+                  description: Override the source connector configuration for this job only. Does not affect the saved configuration.
+                override_target_config:
+                  type: object
+                  description: Override the target connector configuration for this job only. Does not affect the saved configuration.
+                ignore_parallel_jobs:
+                  type: boolean
+                  description: If true, the job will ignore restrictions on parallel job execution for this connector.
+                queue_if_active_job:
+                  type: boolean
+                  description: If set to true, queues the job when another job is already running for the same tenant or flow. If omitted or set to false, the API returns an error when an active job blocks creation.
+                environment_variables:
+                  type: object
+                  description: Override environment variables for the job execution. Does not affect saved configuration.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    job_id: 37g_DK
+                    env_id: mydomain.hotglue.xyz
+                    flow_id: l8odS2mce
+                    job_name: l8odS2mce-chargebee-20220119-153011
+                    external_job_id: asdijsdijasd
+                    tenant: '12598713'
+                    started_by: '12598713'
+                    s3_root: 12598713/flows/l8odS2mce/jobs/2022/01/4/19/15/37g_DK
+                    start_time: '2022-01-19T15:30:11.731333+00:00'
+                    state: {}
+                    tap: chargebee
+                    status: JOB_CREATED
+                    scheduled_job: true
+                    message: '...'
+                    last_updated: '2022-01-19T15:35:13.982380+00:00'
+                    processed_rows: 0
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: string
+                    example: 37g_DK
+                  env_id:
+                    type: string
+                    example: mydomain.hotglue.xyz
+                  flow_id:
+                    type: string
+                    example: l8odS2mce
+                  job_name:
+                    type: string
+                    example: l8odS2mce-chargebee-20220119-153011
+                  external_job_id:
+                    type: string
+                    example: asdijsdijasd
+                  tenant:
+                    type: string
+                    example: 12598713
+                  started_by:
+                    type: string
+                    example: 12598713
+                  s3_root:
+                    type: string
+                    example: 12598713/flows/l8odS2mce/jobs/2022/01/4/19/15/37g_DK
+                  start_time:
+                    type: string
+                    example: '2022-01-19T15:30:11.731333+00:00'
+                  state:
+                    type: object
+                    properties: {}
+                  tap:
+                    type: string
+                    example: chargebee
+                  status:
+                    type: string
+                    example: JOB_CREATED
+                    enum:
+                    - JOB_CREATED
+                    - DISCOVER_STARTED
+                    - DISCOVER_FAILED
+                    - SYNC_STARTED
+                    - SYNC_FAILED
+                    - SYNC_SUCCESS
+                    - ETL_STARTED
+                    - ETL_FAILED
+                    - ETL_SUCCESS
+                    - EXPORT_STARTED
+                    - EXPORT_FAILED
+                    - JOB_COMPLETED
+                  scheduled_job:
+                    type: boolean
+                    example: true
+                    default: true
+                  message:
+                    type: string
+                    example: '...'
+                  last_updated:
+                    type: string
+                    example: '2022-01-19T15:35:13.982380+00:00'
+                  processed_rows:
+                    type: integer
+                    example: 0
+                    default: 0
+        '202':
+          description: Job queued because another job is already running
+          content:
+            application/json:
+              examples:
+                Queued Job:
+                  value:
+                    message: Job has been queued. It will run when available
+                    reason: There is a job currently running
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Job has been queued. It will run when available
+                  reason:
+                    type: string
+                    example: There is a job currently running
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+    get:
+      summary: Fetch jobs
+      description: Returns a list of job details for a specified tenant. Note that this endpoint does not return raw data fetched in jobs.
+      operationId: jobs-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: count
+        in: query
+        description: Number of jobs to return (sorted chronologically)
+        schema:
+          type: integer
+          format: int32
+          default: 5
+      - name: scheduled
+        in: query
+        description: Query for scheduled jobs only
+        schema:
+          type: boolean
+      - name: job_type
+        in: query
+        description: For V2 flows, define whether you fetch "read" or "write" type jobs
+        schema:
+          type: string
+          enum:
+          - read
+          - write
+      - name: page
+        in: query
+        description: Pagination key used to fetch additional records. Defaults to page=1
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: from
+        in: query
+        description: Start date filter (ISO 8601 format)
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: End date filter (ISO 8601 format)
+        schema:
+          type: string
+          format: date
+      - name: include_state
+        in: query
+        description: Include job state in response if true
+        schema:
+          type: boolean
+          default: false
+      - name: include_export_details
+        in: query
+        description: Include export details in response if true
+        schema:
+          type: boolean
+          default: true
+      - name: ignore_empty_jobs
+        in: query
+        description: Ignore jobs with no records processed
+        schema:
+          type: boolean
+          default: false
+      - name: sync_type
+        in: query
+        description: Type of sync
+        schema:
+          type: string
+          enum:
+          - incremental_sync
+          - auto_sync
+          - full_sync
+          - real_time_sync
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - job_id: lmaEbA
+                    env_id: dev.example-env.hotglue.xyz
+                    job_name: test_job:_V-vgdlLN
+                    tenant: default
+                    started_by: default
+                    flow: l8odS2mce
+                    s3_root: default/flows/l8odS2mce/jobs/lmaEbA
+                    start_time: '2020-12-30T18:01:01.828266+00:00'
+                    state: {}
+                    tap: quickbooks:sandbox
+                    status: ETL_FAILED
+                    message: ETL error...
+                    last_updated: '2020-12-30T20:31:00.081282+00:00'
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    job_id:
+                      type: string
+                      example: lmaEbA
+                    env_id:
+                      type: string
+                      example: dev.example-env.hotglue.xyz
+                    job_name:
+                      type: string
+                      example: test_job:_V-vgdlLN
+                    tenant:
+                      type: string
+                      example: default
+                    started_by:
+                      type: string
+                      example: default
+                    flow:
+                      type: string
+                      example: l8odS2mce
+                    s3_root:
+                      type: string
+                      example: default/flows/l8odS2mce/jobs/lmaEbA
+                    start_time:
+                      type: string
+                      example: '2020-12-30T18:01:01.828266+00:00'
+                    state:
+                      type: object
+                      properties: {}
+                    tap:
+                      type: string
+                      example: quickbooks:sandbox
+                    status:
+                      type: string
+                      example: ETL_FAILED
+                      enum:
+                      - JOB_CREATED
+                      - DISCOVER_STARTED
+                      - DISCOVER_FAILED
+                      - SYNC_STARTED
+                      - SYNC_FAILED
+                      - SYNC_SUCCESS
+                      - ETL_STARTED
+                      - ETL_FAILED
+                      - ETL_SUCCESS
+                      - EXPORT_STARTED
+                      - EXPORT_FAILED
+                      - JOB_COMPLETED
+                    message:
+                      type: string
+                      example: ETL error...
+                    last_updated:
+                      type: string
+                      example: '2020-12-30T20:31:00.081282+00:00'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/status:
+    get:
+      summary: Poll job status
+      description: Check on the status of a job using exactly one of `job_root`, `job_id`, or `external_job_id`. Read about the possible job statuses here.
+      operationId: jobs-status
+      parameters:
+      - name: job_root
+        in: query
+        description: S3 root of this job
+        required: false
+        schema:
+          type: string
+      - name: job_id
+        in: query
+        description: ID of this job
+        required: false
+        schema:
+          type: string
+      - name: external_job_id
+        in: query
+        description: External ID of this job
+        required: false
+        schema:
+          type: string
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    job_id: lmaEbA
+                    env_id: dev.example-env.hotglue.xyz
+                    job_name: test_job:_V-vgdlLN
+                    tenant: default
+                    started_by: default
+                    flow: l8odS2mce
+                    s3_root: default/flows/l8odS2mce/jobs/lmaEbA
+                    start_time: '2020-12-30T18:01:01.828266+00:00'
+                    state: {}
+                    tap: quickbooks:sandbox
+                    status: ETL_FAILED
+                    message: ETL error...
+                    last_updated: '2020-12-30T20:31:00.081282+00:00'
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: string
+                    example: lmaEbA
+                  env_id:
+                    type: string
+                    example: dev.example-env.hotglue.xyz
+                  job_name:
+                    type: string
+                    example: test_job:_V-vgdlLN
+                  tenant:
+                    type: string
+                    example: default
+                  started_by:
+                    type: string
+                    example: default
+                  flow:
+                    type: string
+                    example: l8odS2mce
+                  s3_root:
+                    type: string
+                    example: default/flows/l8odS2mce/jobs/lmaEbA
+                  start_time:
+                    type: string
+                    example: '2020-12-30T18:01:01.828266+00:00'
+                  state:
+                    type: object
+                    properties: {}
+                  tap:
+                    type: string
+                    example: quickbooks:sandbox
+                  status:
+                    type: string
+                    example: ETL_FAILED
+                    enum:
+                    - JOB_CREATED
+                    - DISCOVER_STARTED
+                    - DISCOVER_FAILED
+                    - SYNC_STARTED
+                    - SYNC_FAILED
+                    - SYNC_SUCCESS
+                    - ETL_STARTED
+                    - ETL_FAILED
+                    - ETL_SUCCESS
+                    - EXPORT_STARTED
+                    - EXPORT_FAILED
+                    - JOB_COMPLETED
+                  message:
+                    type: string
+                    example: ETL error...
+                  last_updated:
+                    type: string
+                    example: '2020-12-30T20:31:00.081282+00:00'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    Code: Error
+                    Message: Invalid job_root supplied - job does not exist!
+              schema:
+                type: object
+                properties:
+                  Code:
+                    type: string
+                    example: Error
+                  Message:
+                    type: string
+                    example: Invalid job_root supplied - job does not exist!
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/schedule:
+    put:
+      summary: Create jobs schedule
+      description: Create a new schedule for a tenant
+      operationId: jobs-schedule
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - schedule_expression
+              properties:
+                schedule_expression:
+                  type: string
+                  description: cron expression defining how often sync should occur e.g. `cron(0 0 * * *)`
+                job_type:
+                  type: string
+                  description: For v2 flows, defines the type of job. Accepts "read" or "write."
+                  enum:
+                  - read
+                  - write
+                state:
+                  type: string
+                  description: Whether this schedule should be DISABLED or ENABLED
+                  default: ENABLED
+                  enum:
+                  - DISABLED
+                  - ENABLED
+                connector_id:
+                  type: string
+                  description: Optional specific connector or tap ID to set the schedule on
+                override_start_date:
+                  type: string
+                  format: date-time
+                  description: Optional override for the `start_date` that jobs will run with. This will ignore state bookmarks and any `start_date` in the config.
+                override_selected_tables:
+                  type: object
+                  description: Override the unified schema selection for this schedule
+                override_field_map:
+                  type: object
+                  description: Override the field map selection for this schedule
+                environment_variables:
+                  type: object
+                  description: Set optional environment variables for the job to use (generally for use in the ETL).
+                schedule_jitter_minutes:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 720
+                  description: Jitter window in minutes for default schedules. Only allowed when tenant is `default`; set to null to clear.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    Code: BadRequestError
+                    Message: Invalid cron expression!
+              schema:
+                type: object
+                properties:
+                  Code:
+                    type: string
+                    example: BadRequestError
+                  Message:
+                    type: string
+                    example: Invalid cron expression!
+      deprecated: false
+      tags:
+      - Jobs
+    get:
+      summary: Retrieve jobs schedule
+      description: Fetch the schedule for a tenant
+      operationId: jobs-schedule-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: job_type
+        in: query
+        description: Type of job to retrieve (Bidirectional flows only)
+        schema:
+          type: string
+          enum:
+          - read
+          - write
+          default: read
+        required: false
+      - name: connector_id
+        in: query
+        description: ID of connector to retrieve. If not provided, flow level schedule will be returned.
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    ScheduleExpression: cron(0 0 ? * SUN *)
+                    State: DISABLED
+                    ScheduleJitterMinutes: 60
+                    ExtraArgs:
+                      override_start_date: '2000-01-01'
+              schema:
+                type: object
+                properties:
+                  ScheduleExpression:
+                    type: string
+                    example: cron(0 0 ? * SUN *)
+                  State:
+                    type: string
+                    example: DISABLED
+                  ScheduleJitterMinutes:
+                    type:
+                    - integer
+                    - 'null'
+                    example: 60
+                  ExtraArgs:
+                    type: object
+                    example:
+                      override_start_date: '2000-01-01'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+    delete:
+      summary: Delete jobs schedule
+      description: Delete or disable a schedule for a tenant
+      operationId: delete-jobs-schedule
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: hard_delete
+        in: query
+        description: If `true`, permanently deletes the schedule when `tenant` is `default`. For any other tenant, the schedule is only disabled. If `false` or omitted, disables the schedule without deleting it.
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/download:
+    get:
+      summary: Trigger download
+      description: Jobs Download
+      operationId: jobs-download-trigger
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: job_id
+        in: query
+        description: ID of job
+        required: true
+        schema:
+          type: string
+      - name: job_root
+        in: query
+        description: Job root path (listed as s3_root in job details)
+        required: true
+        schema:
+          type: string
+      - name: content
+        in: query
+        description: 'Comma separated list of what to include in download can include: `details,sync,etl,snapshot`'
+        schema:
+          type: string
+          default: details,sync,etl,snapshot
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    task_id: arn:aws:ecs:us-east-1:581362835603:task/hg-hotglue-qa/982f4a997c1b48ba99f98e666bcddb75
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: string
+                    example: arn:aws:ecs:us-east-1:581362835603:task/hg-hotglue-qa/982f4a997c1b48ba99f98e666bcddb75
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/rollback:
+    post:
+      summary: Rollback job
+      description: Reset the the configuration to the state before a given job ran. This affects the `source state` (bookmarks) and the `snapshots`.
+      operationId: jobs-rollback
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - job_root
+              - tap
+              - job_id
+              properties:
+                job_root:
+                  type: string
+                  description: S3 root for job
+                tap:
+                  type: string
+                  description: ID of tap
+                job_id:
+                  type: string
+                  description: ID of job
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/kill:
+    post:
+      summary: Kill job
+      description: End any running processes for a job. Provide exactly one of `job_root`, `job_id`, or `external_job_id`.
+      operationId: jobs-kill-post
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RunJobRequest'
+              type: object
+              oneOf:
+              - required:
+                - job_root
+              - required:
+                - job_id
+              - required:
+                - external_job_id
+              properties:
+                job_root:
+                  type: string
+                  description: S3 root of this job
+                job_id:
+                  type: string
+                  description: ID of this job
+                external_job_id:
+                  type: string
+                  description: External ID of this job
+                reason:
+                  type: string
+                  description: Reason for killing this job
+            example:
+              job_root: <string>
       responses:
         '200':
-          description: Job created.
+          description: '200'
           content:
             application/json:
+              examples:
+                Result:
+                  value: {}
               schema:
-                $ref: '#/components/schemas/Job'
+                type: object
+                properties: {}
         '400':
-          $ref: '#/components/responses/BadRequest'
-components:
-  parameters:
-    Tenant:
-      name: tenant
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Tenant identifier.
-    FlowId:
-      name: flow_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Flow identifier.
-    EnvId:
-      name: env_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Environment identifier.
-  schemas:
-    Job:
-      type: object
-      properties:
-        job_id:
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant}/jobs/zip:
+    get:
+      summary: Fetch job zip
+      description: Jobs Download
+      operationId: jobs-download-zip
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
           type: string
-        env_id:
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
           type: string
-        flow_id:
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
           type: string
-        job_name:
+        required: true
+      - name: job_id
+        in: query
+        description: ID of job
+        required: true
+        schema:
           type: string
-        tenant:
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    url: https://s3.amazonaws.com/dev.hotglue.acme.com/test-user/flows/nqxrc9BvY/jobs/no5jh.zip
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: https://s3.amazonaws.com/dev.hotglue.acme.com/test-user/flows/nqxrc9BvY/jobs/no5jh.zip
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/jobs:
+    get:
+      summary: Advanced Job Query
+      description: Lists jobs across the environment
+      operationId: advanced-job-query
+      parameters:
+      - name: env_id
+        in: path
+        description: Your environment, e.g. dev.hotglue.testcompany.com
+        schema:
           type: string
-        started_by:
-          type: string
-        s3_root:
-          type: string
-        start_time:
-          type: string
-        state:
-          type: object
-        tap:
-          type: string
-        status:
+        required: true
+      - name: count
+        in: query
+        description: The number of jobs to return, from 1-100.
+        schema:
+          type: integer
+          format: int32
+          default: 5
+      - name: page
+        in: query
+        description: Used to paginate the list of jobs
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: status
+        in: query
+        description: A valid job status to filter on. Can also support multiple comma-separated statuses.
+        schema:
           type: string
           enum:
           - JOB_CREATED
@@ -102,67 +1422,738 @@ components:
           - EXPORT_STARTED
           - EXPORT_FAILED
           - JOB_COMPLETED
-        scheduled_job:
+      - name: taps
+        in: query
+        description: One or more taps to filter on. Multiple taps must be comma-separated.
+        schema:
+          type: string
+      - name: targets
+        in: query
+        description: One or more targets to filter on. Multiple targets must be comma-separated.
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: 'A date range to start the query from. Format: `YYYY-MM-DD`'
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        description: 'A date range to end the query with. Format: `YYYY-MM-DD`'
+        schema:
+          type: string
+          format: date
+      - name: tenant
+        in: query
+        description: Filter jobs to a specific tenant.
+        schema:
+          type: string
+      - name: include_export_details
+        in: query
+        description: If false, omits export details from each job in the response.
+        schema:
           type: boolean
-        message:
+          default: true
+      - name: sync_type
+        in: query
+        description: Filter jobs by sync type.
+        schema:
           type: string
-        last_updated:
+          enum:
+          - incremental_sync
+          - auto_sync
+          - full_sync
+          - real_time_sync
+      - name: ignore_empty_jobs
+        in: query
+        description: If true, excludes jobs that processed no records.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow_id}/{tenant_id}/jobs/schedule:
+    put:
+      summary: Create jobs schedule
+      description: Create a new schedule for a tenant
+      operationId: create-jobs-schedule-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
           type: string
-        processed_rows:
-          type: integer
-    RunJobRequest:
-      type: object
-      required:
-      - connector_id
-      - job_type
-      properties:
-        connector_id:
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
           type: string
-        job_type:
+        required: true
+      - name: tenant_id
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - schedule_expression
+              properties:
+                job_type:
+                  type: string
+                  description: The type of job within the v2 flow to manipulate. Accepts "read" or "write."
+                  enum:
+                  - read
+                  - write
+                schedule_expression:
+                  type: string
+                  description: cron expression defining how often sync should occur e.g. `cron(0 0 * * *)`
+                state:
+                  type: string
+                  description: Whether this schedule should be DISABLED or ENABLED
+                  default: ENABLED
+                  enum:
+                  - DISABLED
+                  - ENABLED
+                schedule_jitter_minutes:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 720
+                  description: Jitter window in minutes for default schedules. Only allowed when tenant is `default`; set to null to clear.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    ScheduleExpression: cron(0 0 ? * SUN *)
+                    State: DISABLED
+                    ScheduleJitterMinutes: 60
+              schema:
+                type: object
+                properties:
+                  ScheduleExpression:
+                    type: string
+                    example: cron(0 0 ? * SUN *)
+                  State:
+                    type: string
+                    example: DISABLED
+                  ScheduleJitterMinutes:
+                    type:
+                    - integer
+                    - 'null'
+                    example: 60
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+    get:
+      summary: Retrieve jobs schedule
+      description: Fetch the schedules set for a tenant
+      operationId: jobs-schedule-retrieve-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant_id
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: job_type
+        in: query
+        schema:
           type: string
           enum:
           - read
           - write
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+    delete:
+      summary: Delete jobs schedule
+      description: Fetch the schedules set for a tenant
+      operationId: jobs-schedule-delete-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant_id
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: job_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - read
+          - write
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /v2/{env_id}/{flow_id}/{tenant}/jobs:
+    post:
+      summary: Run a V2 Job
+      description: Kicks off a job for a given tenant. Can be used to write data in target flows by passing a payload in the state object. When `queue_if_active_job` is set to true in the request body, hotglue queues the job if another job is already running for the same tenant or flow.
+      operationId: jobs-create-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - connector_id
+              - job_type
+              properties:
+                connector_id:
+                  type: string
+                  description: The ID of the connector to run a job for. Note that in V2 flows, you do not pass a tap or target
+                job_type:
+                  type: string
+                  description: The schedule expression to sync on
+                  enum:
+                  - read
+                  - write
+                job_name:
+                  type: string
+                  description: Name for job. If not provided, name is autogenerated
+                external_job_id:
+                  type: string
+                  description: External job ID for job. This is used to link the job to an external system.
+                override_start_date:
+                  type: string
+                  description: Date to start syncing data from (e.g. 2022-08-08T00:00:00.000Z)
+                  format: date
+                override_selected_filters:
+                  type: object
+                  description: Override the selected filters for this job only. Uses the same format as the selected filters configuration and does not affect the saved selection.
+                  required:
+                  - filters_version
+                  - streams
+                  properties:
+                    filters_version:
+                      type: string
+                      description: The version of the filters configuration
+                    streams:
+                      type: object
+                      description: The streams and their filters
+                      additionalProperties:
+                        type: object
+                override_end_date:
+                  type: string
+                  description: Date to sync data until. Only supported on some connectors. (e.g. 2022-08-10T00:00:00.000Z)
+                  format: date
+                reset_source_state:
+                  type: boolean
+                  description: Runs the job as a "full_sync" by clearing the `state` on the linkedSource
+                override_selected_tables:
+                  type: object
+                  description: For use with the unified schema. Define a temporary selection of unified schema objects to override the default selection. Does not affect your selection for future jobs. E.G. `{"Vendors":true}`
+                override_source_config:
+                  type: object
+                  description: Override the source connector configuration for this job only. Does not affect the saved configuration.
+                override_target_config:
+                  type: object
+                  description: Override the target connector configuration for this job only. Does not affect the saved configuration.
+                override_connector_config:
+                  type: object
+                  description: Override the bidirectional connector-level configuration for this job only.
+                override_field_map:
+                  type: object
+                  description: Define a temporary field map to be used in the job, different from the configured field map.
+                environment_variables:
+                  type: object
+                  description: Override environment variables for the job execution.
+                state:
+                  type: object
+                  description: Optional extra context to be used by the job. Often used for write jobs. Note that this is different from the source state.
+                streaming_job:
+                  type: boolean
+                  description: If true, the job will run in streaming mode and skip the ETL step. This feature is in beta.
+                ignore_parallel_jobs:
+                  type: boolean
+                  description: If true, the job will ignore restrictions on parallel job execution for this connector.
+                queue_if_active_job:
+                  type: boolean
+                  description: If set to true, queues the job when another job is already running for the same tenant or flow. If omitted or set to false, the API returns an error when an active job blocks creation.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    job_id: 37g_DK
+                    env_id: mydomain.hotglue.xyz
+                    flow_id: l8odS2mce
+                    job_name: l8odS2mce-chargebee-20220119-153011
+                    external_job_id: asdijsdijasd
+                    tenant: '12598713'
+                    started_by: '12598713'
+                    s3_root: 12598713/flows/l8odS2mce/jobs/2022/01/4/19/15/37g_DK
+                    start_time: '2022-01-19T15:30:11.731333+00:00'
+                    state: {}
+                    tap: chargebee
+                    status: JOB_CREATED
+                    scheduled_job: true
+                    message: '...'
+                    last_updated: '2022-01-19T15:35:13.982380+00:00'
+                    processed_rows: 0
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: string
+                    example: 37g_DK
+                  env_id:
+                    type: string
+                    example: mydomain.hotglue.xyz
+                  flow_id:
+                    type: string
+                    example: l8odS2mce
+                  job_name:
+                    type: string
+                    example: l8odS2mce-chargebee-20220119-153011
+                  external_job_id:
+                    type: string
+                    example: asdijsdijasd
+                  tenant:
+                    type: string
+                    example: 12598713
+                  started_by:
+                    type: string
+                    example: 12598713
+                  s3_root:
+                    type: string
+                    example: 12598713/flows/l8odS2mce/jobs/2022/01/4/19/15/37g_DK
+                  start_time:
+                    type: string
+                    example: '2022-01-19T15:30:11.731333+00:00'
+                  state:
+                    type: object
+                    properties: {}
+                  tap:
+                    type: string
+                    example: chargebee
+                  status:
+                    type: string
+                    example: JOB_CREATED
+                    enum:
+                    - JOB_CREATED
+                    - DISCOVER_STARTED
+                    - DISCOVER_FAILED
+                    - SYNC_STARTED
+                    - SYNC_FAILED
+                    - SYNC_SUCCESS
+                    - ETL_STARTED
+                    - ETL_FAILED
+                    - ETL_SUCCESS
+                    - EXPORT_STARTED
+                    - EXPORT_FAILED
+                    - JOB_COMPLETED
+                  scheduled_job:
+                    type: boolean
+                    example: true
+                    default: true
+                  message:
+                    type: string
+                    example: '...'
+                  last_updated:
+                    type: string
+                    example: '2022-01-19T15:35:13.982380+00:00'
+                  processed_rows:
+                    type: integer
+                    example: 0
+                    default: 0
+        '202':
+          description: Job queued because another job is already running
+          content:
+            application/json:
+              examples:
+                Queued Job:
+                  value:
+                    message: Job has been queued. It will run when available
+                    reason: There is a job currently running
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Job has been queued. It will run when available
+                  reason:
+                    type: string
+                    example: There is a job currently running
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Jobs
+  /{env_id}/{flow}/{tenant_id}/jobs/retrigger:
+    post:
+      summary: Retrigger a job
+      description: Retriggers a job based on exactly one of the provided job_root, job_id, or external_job_id and parameters. Returns the job details for the retriggered job.
+      parameters:
+      - name: env_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: flow
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              oneOf:
+              - required:
+                - job_root
+              - required:
+                - job_id
+              - required:
+                - external_job_id
+              properties:
+                job_root:
+                  type: string
+                  description: The job root (aka s3_root) to retrigger
+                job_id:
+                  type: string
+                  description: The job ID to retrigger
+                external_job_id:
+                  type: string
+                  description: The external job ID to retrigger
+                skip_sync:
+                  type: boolean
+                  default: true
+                  description: Whether to skip or rerun the sync step. If true, the ETL script will use the job's existing synced data.
+                skip_etl:
+                  type: boolean
+                  default: false
+                  description: Whether to skip or rerun the ETL step. If true, the export step will use the job's existing ETL data.
+                skip_webhooks:
+                  type: boolean
+                  default: false
+                  description: Whether to send job status webhooks for the retriggered job.
+            example:
+              job_root: <string>
+      responses:
+        '200':
+          description: Job successfully retriggered
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The details for the retriggered job.
+                properties:
+                  job_id:
+                    type: string
+                    description: The ID of the retriggered job
+                  env_id:
+                    type: string
+                    description: The ID of the environment
+                  flow_id:
+                    type: string
+                    description: The ID of the flow
+                  job_name:
+                    type: string
+                    description: The name of the retriggered job
+                  tenant:
+                    type: string
+                    description: The ID of the tenant
+                  s3_root:
+                    type: string
+                    description: The S3 root of the retriggered job
+                examples:
+                  Result:
+                    value:
+                      job_id: 37g_DK
+                      env_id: mydomain.hotglue.xyz
+                      flow_id: l8odS2mce
+                      job_name: l8odS2mce-chargebee-20220119-153011
+                      tenant: '12598713'
+                      started_by: '12598713'
+                      s3_root: 12598713/flows/l8odS2mce/jobs/2022/01/4/19/15/37g_DK
+                      start_time: '2022-01-19T15:30:11.731333+00:00'
+                      state: {}
+                      tap: chargebee
+                      status: JOB_CREATED
+                      message: '...'
+                      last_updated: '2022-01-19T15:35:13.982380+00:00'
+        '400':
+          description: Invalid request (missing job or flow, job still running, etc.)
+      tags:
+      - Jobs
+      operationId: postByEnvIdByFlowByTenantIdJobsRetrigger
+      x-operation-id-source: derived
+components:
+  schemas:
+    QueuedJob:
+      type: object
+      required:
+      - id
+      - env_id
+      - tenant_id
+      - flow_id
+      - status
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: integer
+          example: 101
+        env_id:
+          type: string
+          example: test-env
+        tenant_id:
+          type: string
+          example: tenant-123
+        flow_id:
+          type: string
+          example: customer-sync
+        status:
+          type: string
+          example: QUEUED
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-01-02T03:04:05+00:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2026-01-02T03:05:06+00:00'
         job_name:
-          type: string
+          type:
+          - string
+          - 'null'
+          example: Nightly customer sync
         override_start_date:
-          type: string
+          type:
+          - string
+          - 'null'
+          example: '2026-01-01T00:00:00Z'
         override_end_date:
-          type: string
-        reset_source_state:
-          type: boolean
+          type:
+          - string
+          - 'null'
+          example: '2026-01-01T00:00:00Z'
         override_selected_tables:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: boolean
+          example:
+            customer: true
+            orders: false
+        override_field_map:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example: null
+        override_env_vars:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example:
+            DEBUG: 'true'
+        override_source_config:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example: null
+        override_target_config:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example: null
+        override_connector_config:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          example: null
+        override_lifecycle_webhook:
+          type:
+          - object
+          - 'null'
+          properties:
+            url:
+              type: string
+              description: The URL to send lifecycle webhooks to.
+              example: https://example.com
+            secret:
+              type: string
+              description: An optional secret to include with the webhook for verification.
+              example: some-secret
+          required:
+          - url
+          description: If present, this must be an object containing a required 'url' field. Set to null to remove.
+          example:
+            url: https://example.com
+            secret: some-secret
+    QueuedJobsResponse:
+      type: object
+      required:
+      - queued_jobs
+      properties:
+        queued_jobs:
           type: array
           items:
-            type: string
-        override_source_config:
-          type: object
-        override_target_config:
-          type: object
-        override_connector_config:
-          type: object
-        override_field_map:
-          type: object
-        environment_variables:
-          type: object
-        state:
-          type: object
-        streaming_job:
-          type: boolean
-        ignore_parallel_jobs:
-          type: boolean
-  responses:
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            type: object
+            $ref: '#/components/schemas/QueuedJob'
   securitySchemes:
-    ApiKeyAuth:
+    sec0:
       type: apiKey
       in: header
       name: x-api-key
-externalDocs:
-  description: Hotglue API Reference v2
-  url: https://docs.hotglue.com/api-reference/v2
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true

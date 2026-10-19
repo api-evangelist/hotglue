@@ -61,54 +61,6 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.hotglue.com/api-reference/v1/introduction
-- aid: hotglue:hotglue-connector-metadata-api
-  name: Hotglue Connector Metadata API
-  description: Retrieve available and supported connectors.
-  humanURL: https://docs.hotglue.com/api-reference/v2
-  baseURL: https://api.hotglue.com
-  tags:
-  - Connector Metadata
-  properties:
-  - type: OpenAPI
-    url: openapi/hotglue-connector-metadata-api-openapi.yml
-  - type: Documentation
-    url: https://docs.hotglue.com/
-  - type: APIReference
-    url: https://docs.hotglue.com/api-reference/v2
-  - type: GettingStarted
-    url: https://docs.hotglue.com/getting-started
-- aid: hotglue:hotglue-connector-state-api
-  name: Hotglue Connector State API
-  description: Manage bookmark and sync state for linked connectors.
-  humanURL: https://docs.hotglue.com/api-reference/v2
-  baseURL: https://api.hotglue.com
-  tags:
-  - Connector State
-  properties:
-  - type: OpenAPI
-    url: openapi/hotglue-connector-state-api-openapi.yml
-  - type: Documentation
-    url: https://docs.hotglue.com/
-  - type: APIReference
-    url: https://docs.hotglue.com/api-reference/v2
-  - type: GettingStarted
-    url: https://docs.hotglue.com/getting-started
-- aid: hotglue:hotglue-discover-api
-  name: Hotglue Discover API
-  description: Trigger and poll connector discovery.
-  humanURL: https://docs.hotglue.com/api-reference/v2
-  baseURL: https://api.hotglue.com
-  tags:
-  - Discover
-  properties:
-  - type: OpenAPI
-    url: openapi/hotglue-discover-api-openapi.yml
-  - type: Documentation
-    url: https://docs.hotglue.com/
-  - type: APIReference
-    url: https://docs.hotglue.com/api-reference/v2
-  - type: GettingStarted
-    url: https://docs.hotglue.com/getting-started
 - aid: hotglue:hotglue-jobs-api
   name: Hotglue Jobs API
   description: Run jobs for linked connectors.
@@ -127,16 +79,256 @@ apis:
     url: https://docs.hotglue.com/api-reference/v2
   - type: GettingStarted
     url: https://docs.hotglue.com/getting-started
-- aid: hotglue:hotglue-linked-connectors-api
-  name: Hotglue Linked Connectors API
-  description: Create, retrieve, update, and delete linked connectors for a tenant.
-  humanURL: https://docs.hotglue.com/api-reference/v2
+- aid: hotglue:hotglue-availableconnectors-api
+  name: Hotglue Available Connectors API
+  description: The AvailableConnectors API from Hotglue — 1 operation(s) for availableconnectors.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
   baseURL: https://api.hotglue.com
   tags:
-  - Linked Connectors
+  - AvailableConnectors
   properties:
   - type: OpenAPI
-    url: openapi/hotglue-linked-connectors-api-openapi.yml
+    url: openapi/hotglue-availableconnectors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-availablesources-api
+  name: Hotglue Available Sources API
+  description: The AvailableSources API from Hotglue — 1 operation(s) for availablesources.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - AvailableSources
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-availablesources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-availabletargets-api
+  name: Hotglue Available Targets API
+  description: The AvailableTargets API from Hotglue — 1 operation(s) for availabletargets.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - AvailableTargets
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-availabletargets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-connectors-api
+  name: Hotglue Connectors API
+  description: The Connectors API from Hotglue — 6 operation(s) for connectors.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-connectors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-flows-api
+  name: Hotglue Flows API
+  description: The Flows API from Hotglue — 2 operation(s) for flows.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-flows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-jupyter-api
+  name: Hotglue Jupyter API
+  description: The Jupyter API from Hotglue — 1 operation(s) for jupyter.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Jupyter
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-jupyter-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-linkedconnectors-api
+  name: Hotglue Linked Connectors API
+  description: The LinkedConnectors API from Hotglue — 4 operation(s) for linkedconnectors.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - LinkedConnectors
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-linkedconnectors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-linkedsources-api
+  name: Hotglue Linked Sources API
+  description: The LinkedSources API from Hotglue — 5 operation(s) for linkedsources.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - LinkedSources
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-linkedsources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-linkedtargets-api
+  name: Hotglue Linked Targets API
+  description: The LinkedTargets API from Hotglue — 3 operation(s) for linkedtargets.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - LinkedTargets
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-linkedtargets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-mcptoken-api
+  name: Hotglue MCP Token API
+  description: The McpToken API from Hotglue — 1 operation(s) for mcptoken.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - McpToken
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-mcptoken-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-supportedconnectors-api
+  name: Hotglue Supported Connectors API
+  description: The SupportedConnectors API from Hotglue — 1 operation(s) for supportedconnectors.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - SupportedConnectors
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-supportedconnectors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-supportedsources-api
+  name: Hotglue Supported Sources API
+  description: The SupportedSources API from Hotglue — 1 operation(s) for supportedsources.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - SupportedSources
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-supportedsources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-supportedtargets-api
+  name: Hotglue Supported Targets API
+  description: The SupportedTargets API from Hotglue — 1 operation(s) for supportedtargets.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - SupportedTargets
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-supportedtargets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-tenant-api
+  name: Hotglue Tenant API
+  description: The Tenant API from Hotglue — 5 operation(s) for tenant.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-tenant-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-tenants-api
+  name: Hotglue Tenants API
+  description: The Tenants API from Hotglue — 2 operation(s) for tenants.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Tenants
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-tenants-api-openapi.yml
+  - type: Documentation
+    url: https://docs.hotglue.com/
+  - type: APIReference
+    url: https://docs.hotglue.com/api-reference/v2
+  - type: GettingStarted
+    url: https://docs.hotglue.com/getting-started
+- aid: hotglue:hotglue-magic-link-api
+  name: Hotglue Magic Link API
+  description: The Magic Link API from Hotglue — 1 operation(s) for magic link.
+  humanURL: https://docs.hotglue.com/api-reference/v1/introduction
+  baseURL: https://api.hotglue.com
+  tags:
+  - Magic Link
+  properties:
+  - type: OpenAPI
+    url: openapi/hotglue-magic-link-api-openapi.yml
   - type: Documentation
     url: https://docs.hotglue.com/
   - type: APIReference

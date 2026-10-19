@@ -1,0 +1,555 @@
+openapi: 3.2.0
+info:
+  title: hotglue Tenant API
+  version: '1.2'
+servers:
+- url: https://api.hotglue.com
+security:
+- sec0: []
+tags:
+- name: Tenant
+paths:
+  /tenant/{env_id}/{tenant}:
+    delete:
+      summary: Delete a tenant
+      description: Delete all of a tenants data and optionally revoke OAuth connections
+      operationId: tenants-delete
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: revoke
+        in: query
+        description: Revokes all OAuth connections if set to true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+  /tenant/{env_id}/{tenant}/snapshots:
+    delete:
+      summary: Delete Snapshot
+      description: 'Delete all existing snapshots for a particular tenant
+
+
+        Learn more about snapshots here.'
+      operationId: tenants-delete-snapshot
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+    get:
+      summary: Get Snapshots
+      description: 'Retrieve either a list of snapshot files or a specific snapshot file for a tenant.
+
+
+        Learn more about snapshots here.'
+      operationId: tenants-get-snapshots
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: path
+        description: ID of tenant
+        required: true
+        schema:
+          type: string
+      - name: file
+        in: query
+        description: Name of the specific snapshot file to retrieve. If provided, the response will include the base64 encoded file contents. If not provided, a list of downloadable snapshot files will be returned.
+        required: false
+        schema:
+          type: string
+      - name: folder
+        in: query
+        description: Folder within the snapshots directory to list files from. If not provided, all files will be returned.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              examples:
+                List Files:
+                  value:
+                  - file: contacts_abcd.snapshot.parquet
+                    last_updated: '2024-06-02T12:34:56Z'
+                  - file: companies_abcd.snapshot.parquet
+                    last_updated: '2024-06-02T14:34:56Z'
+                Single File:
+                  value:
+                    data: <base64-encoded-string>
+                    mime_type: application/json
+              schema:
+                oneOf:
+                - type: array
+                  items:
+                    type: object
+                    properties:
+                      file:
+                        type: string
+                      last_updated:
+                        type: string
+                        format: date-time
+                - type: object
+                  properties:
+                    data:
+                      type: string
+                    mime_type:
+                      type: string
+      deprecated: false
+      tags:
+      - Tenant
+  /tenant/{env_id}/{tenant}/config:
+    get:
+      summary: Get tenant config
+      description: Gets the `tenant-config.json` from snapshots
+      operationId: tenants-get-config
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+    put:
+      summary: Set tenant config
+      description: Creates a `tenant-config.json` that you can use to store custom settings, credentials, and metadata
+      operationId: tenants-set-config
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                config:
+                  type: object
+                  description: The tenant config to save in hotglue. Can be any JSON object
+                  properties: {}
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+    patch:
+      summary: Update tenant config
+      description: Update an existing tenant config
+      operationId: tenants-update-config
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                config:
+                  type: object
+                  description: The tenant config to save in hotglue. Can be any JSON object
+                  properties: {}
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+  /tenant/{env_id}/{tenant}/mapping:
+    get:
+      summary: Get tenant mapping
+      description: Gets the mapping object from the `tenant-config.json`, if present
+      operationId: tenants-get-mapping
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+    put:
+      summary: Set tenant mapping
+      description: Adds a mapping object to the `tenant-config.json`.
+      operationId: tenants-set-mapping
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                config:
+                  type: object
+                  required:
+                  - mapping
+                  properties:
+                    mapping:
+                      type: object
+                      title: Flow mappings
+                      description: Map of Flow ID → Table mappings
+                      propertyNames:
+                        type: string
+                        description: Flow ID (e.g., FElWoODnU)
+                      additionalProperties:
+                        type: object
+                        title: Table mappings
+                        description: Map of "InternalTable/RemoteTable" → Field mappings
+                        propertyNames:
+                          type: string
+                          description: '"InternalTable/RemoteTable" pair (e.g., Leads/Contact)'
+                          pattern: ^[^/]+/[^/]+$
+                        additionalProperties:
+                          type: object
+                          title: Field mappings
+                          description: Map of internal field → remote field name
+                          propertyNames:
+                            type: string
+                            description: Internal field name (e.g., interest)
+                            minLength: 1
+                          additionalProperties:
+                            type: string
+                            description: Remote field name (e.g., LastName)
+                            minLength: 1
+                entityType:
+                  type: string
+                  description: Optional. Use `taps` for one-way flows, and `connectors` for bi-directional flows.
+                  enum:
+                  - taps
+                  - connectors
+                entityId:
+                  type: string
+                  description: Optional. Identifier for the tap/connector (e.g., "salesforce").
+                flow:
+                  type: string
+                  description: Optional. Flow ID that this operation pertains to.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+  /tenant/{env_id}/{tenant}/metadata:
+    put:
+      summary: Set tenant metadata
+      description: Add metadata to your Tenant Metadata object
+      operationId: set-tenant-metadata
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                config:
+                  type: object
+                  description: The tenant config to save in hotglue.
+                  properties:
+                    metadata:
+                      type: object
+                      description: The tenant metadata to save in hotglue. Can be any JSON object
+                      properties: {}
+                  required:
+                  - metadata
+              required:
+              - config
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+    get:
+      summary: Fetch tenant metadata
+      description: Fetch the metadata object from your tenant
+      operationId: get-tenant-metadata
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Tenant
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: x-api-key
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true

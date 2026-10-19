@@ -1,0 +1,910 @@
+openapi: 3.2.0
+info:
+  title: hotglue Linked Sources API
+  version: '1.2'
+servers:
+- url: https://api.hotglue.com
+security:
+- sec0: []
+tags:
+- name: LinkedSources
+paths:
+  /{env_id}/{flow_id}/{tenant}/linkedSources:
+    get:
+      summary: Retrieve linked source
+      description: Fetch the linked source for a tenant. This can be useful for fetching credentials and flags, and to confirm that a user is properly connected.
+      operationId: linked-sources-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: token
+        in: query
+        description: JWT token generated with your private signing key. Required if config is requested
+        schema:
+          type: string
+      - name: config
+        in: query
+        description: Request the underlying config for the linked source
+        schema:
+          type: boolean
+      - name: catalog
+        in: query
+        description: Request the catalog of available fields/data to be returned in the payload
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - tap: asana
+                    domain: asana.com
+                    label: Asana
+                    tap_url: https://app.asana.com/-/oauth_authorize?response_type=code&client_id=*********
+                    auth_url: https://app.asana.com/-/oauth_token
+                    icon: https://s3.amazonaws.com/cdn.hotglue.xyz/images/logos/asana.svg
+                    type: oauth
+                    client_id: '**********'
+                    fieldMap:
+                      tasks:
+                        name: tasks
+                        selected:
+                        - gid
+                        - modified_at
+                        - resource_type
+                        - name
+                        - approval_status
+                        - assignee_status
+                        - completed
+                        - completed_at
+                        - completed_by
+                        - created_at
+                        - dependencies
+                        - dependents
+                        - due_at
+                        - due_on
+                        - external
+                        - hearted
+                        - hearts
+                        - html_notes
+                        - is_rendered_as_seperator
+                        - liked
+                        - likes
+                        - memberships
+                        - notes
+                        - num_hearts
+                        - num_likes
+                        - num_subtasks
+                        - resource_subtype
+                        - start_on
+                        - assignee
+                        - custom_fields
+                        - followers
+                        - parent
+                        - permalink_url
+                        - projects
+                        - tags
+                        - workspace
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tap:
+                      type: string
+                      example: asana
+                    domain:
+                      type: string
+                      example: asana.com
+                    label:
+                      type: string
+                      example: Asana
+                    tap_url:
+                      type: string
+                      example: https://app.asana.com/-/oauth_authorize?response_type=code&client_id=*********
+                    auth_url:
+                      type: string
+                      example: https://app.asana.com/-/oauth_token
+                    icon:
+                      type: string
+                      example: https://s3.amazonaws.com/cdn.hotglue.xyz/images/logos/asana.svg
+                    type:
+                      type: string
+                      example: oauth
+                    client_id:
+                      type: string
+                      example: '**********'
+                    fieldMap:
+                      type: object
+                      properties:
+                        tasks:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: tasks
+                            selected:
+                              type: array
+                              items:
+                                type: string
+                                example: gid
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+    post:
+      summary: Link a source
+      description: Create a new connection for a tenant by passing a config object, along with an optional schedule or field_map
+      operationId: linked-sources-create
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - source
+              properties:
+                source:
+                  type: object
+                  description: The source & settings info you wish to link
+                  required:
+                  - tap
+                  properties:
+                    tap:
+                      type: string
+                      description: Name of tap
+                    config:
+                      type: object
+                      description: JSON object containing settings for the source
+                    symlink:
+                      type: object
+                      description: Symlink allows you to share credentials with a connection from another flow
+                      properties:
+                        entity:
+                          type: string
+                          description: The name of the connector that is already linked
+                        id:
+                          type: string
+                          description: The previously linked flow_id containing a user's credentials
+                        tenant:
+                          type: string
+                          description: Optional. If using subtenants, the tenant id that has the linked connector.
+                schedule:
+                  type: object
+                  description: The schedule expression to sync on
+                  properties:
+                    schedule_expression:
+                      type: string
+                      description: A CRON expression defining how often to run jobs for the tenant
+                    state:
+                      type: string
+                      description: Whether the schedule should be enabled or disabled
+                      enum:
+                      - ENABLED
+                      - DISABLED
+                field_map:
+                  type:
+                  - object
+                  - 'null'
+                  required: false
+                  description: The field map to use (if not provided, will use default)
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+    delete:
+      summary: Unlink a source
+      description: Permanently delete your tenant's connection. This cannot be undone.
+      operationId: linked-sources-delete
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: tap_name
+        in: query
+        description: Name of tap to unlink
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+    patch:
+      summary: Update linked sources
+      description: Modify the field map or change the config for a linked source
+      operationId: linked-sources-update
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - tap
+              properties:
+                tap:
+                  type: string
+                  description: Name of tap to update
+                field_map:
+                  type:
+                  - object
+                  - 'null'
+                  required: false
+                  description: JSON object representing all fields to pull
+                config:
+                  type:
+                  - object
+                  - 'null'
+                  required: false
+                  description: JSON object containing config values to update
+                delete_fields:
+                  type: array
+                  items:
+                    type: string
+                  required: false
+                  description: List of configuration fields to delete
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+  /{env_id}/{flow_id}/{tenant}/linkedSources/state:
+    get:
+      summary: Retrieve source state
+      description: Fetch the current bookmarks for your tenant's linked source
+      operationId: linked-sources-state-retrieve
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: tap_name
+        in: query
+        description: Name of tap
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    bookmarks:
+                      ProfitAndLoss:
+                        modified_since: '2021-08-15T14:29:26+00:00'
+              schema:
+                type: object
+                properties:
+                  bookmarks:
+                    type: object
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+    put:
+      summary: Set source state
+      description: Overwrite the source state with your own bookmarks to re-sync or ignore data
+      operationId: linked-sources-state-set
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: tap_name
+        in: query
+        description: Name of tap to update
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: object
+                  description: State object containing bookmark timestamps
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+    delete:
+      summary: Delete source state
+      description: Clearing the source state means that the next job will be a full sync
+      operationId: linked-sources-state-delete
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: tap_name
+        in: query
+        description: Name of tap to update
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+  /{env_id}/{flow_id}/{tenant}/linkedSources/discover:
+    get:
+      summary: Run Discover
+      description: Run a discover to generate a `catalog` of available tables and fields
+      operationId: linked-sources-catalog-discover
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: tap_name
+        in: query
+        description: Name of tap to discover
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+  /{env_id}/{flow_id}/{tenant}/linkedSources/discover/poll:
+    get:
+      summary: Poll Discover
+      description: Check the status of a running discover. If empty, no discover is currently running.
+      operationId: linked-sources-catalog-poll-discover
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: tap_name
+        in: query
+        description: Name of tap to query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    status: RUNNING
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: RUNNING
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+  /v2/{env_id}/{flow_id}/{tenant}/linkedSources:
+    get:
+      summary: Get linked sources
+      description: Get a linked source's configuration, catalog, secrets, and trigger mapping for a V2 flow
+      operationId: linked-sources-get-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: config
+        in: query
+        description: Request the underlying config for the linked source
+        schema:
+          type: boolean
+      - name: catalog
+        in: query
+        description: Request the catalog of available fields/data to be returned in the payload
+        schema:
+          type: boolean
+      - name: secret
+        in: query
+        description: Request the secret configuration for the linked source
+        schema:
+          type: boolean
+      - name: triggerMapping
+        in: query
+        description: Request the trigger mapping configuration for the linked source
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - source_id: asana
+                    config: {}
+                    catalog: {}
+                    secret: {}
+                    trigger_mapping: {}
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    source_id:
+                      type: string
+                      description: ID of the linked source
+                    config:
+                      type: object
+                      description: Configuration object for the source
+                    catalog:
+                      type: object
+                      description: Catalog of available fields and data
+                    secret:
+                      type: object
+                      description: Secret configuration for the source
+                    trigger_mapping:
+                      type: object
+                      description: Trigger mapping configuration
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+    patch:
+      summary: Update linked source
+      description: Update a linked source
+      operationId: patchV2ByEnvIdByFlowIdByTenantLinkedSources
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_id:
+                  type: string
+                  description: ID of the source to link
+                field_map:
+                  type: object
+                  description: JSON object representing all fields to pull
+                config:
+                  type: object
+                  description: Configuration for the source
+                delete_fields:
+                  type: array
+                  items:
+                    type: string
+                  required: false
+                  description: List of configuration fields to delete
+              required:
+              - source_id
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - LinkedSources
+      x-operation-id-source: normalized
+      x-operation-id-original: linked-sources-create
+    delete:
+      summary: Unlink a source
+      description: Permanently delete your tenant's linked source connection. This will revoke OAuth credentials and remove the source configuration. This cannot be undone.
+      operationId: linked-sources-delete-v2
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      - name: tenant
+        in: path
+        description: ID of tenant
+        schema:
+          type: string
+        required: true
+      - name: source_id
+        in: query
+        description: ID of the source to unlink
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    status: ok
+                    message: The source source_id was unlinked successfully.
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  message:
+                    type: string
+                    example: The source source_id was unlinked successfully.
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - LinkedSources
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: x-api-key
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,64 @@
+openapi: 3.2.0
+info:
+  title: hotglue Supported Connectors API
+  version: '1.2'
+servers:
+- url: https://api.hotglue.com
+security:
+- sec0: []
+tags:
+- name: SupportedConnectors
+paths:
+  /v2/{env_id}/{flow_id}/supportedConnectors:
+    get:
+      summary: Retrieve supported connectors
+      description: Returns details for connectors that have been enabled in a given flow
+      operationId: retrieve-supported-connectors
+      parameters:
+      - name: env_id
+        in: path
+        description: ID of environment
+        schema:
+          type: string
+        required: true
+      - name: flow_id
+        in: path
+        description: ID of flow
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: []
+              schema:
+                type: array
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: {}
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - SupportedConnectors
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: x-api-key
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true
+x-readme-fauxas: true
