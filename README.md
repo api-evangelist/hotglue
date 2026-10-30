@@ -1,4 +1,4 @@
-# Hotglue (hotglue)
+# Hotglue
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,82 +66,136 @@
 
 Hotglue is an embedded iPaaS platform that enables SaaS products to offer native integrations to their customers. Built on the Python ecosystem, it provides a code-first approach with over 600 open-source connectors, a CLI for programmatic configuration management, detailed job logs, webhooks, and observability integrations. Hotglue allows developers to build flexible, scalable integrations without the lock-in of traditional iPaaS tools.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hotglue/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hotglue/refs/heads/main/apis.yml)
+**Areas:** Connectors · Embedded Integrations · ETL · Integration Platform · iPaaS
 
-## Scope
+## Hotglue on APIs.io
 
-- **Type:** Index
+Everything profiled for Hotglue is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hotglue/](https://apis.io/providers/hotglue/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Connectors
-- Embedded Integrations
-- ETL
-- Integration Platform
-- iPaaS
+- [Hotglue API V1](https://apis.io/apis/hotglue/hotglue-api-v1/) — The Hotglue API v1 provides the original REST API for managing integration flows, linked sources, linked targets, source state, and job execution.
+- [Hotglue Connector Metadata API](https://apis.io/apis/hotglue/hotglue-connector-metadata-api/) — Retrieve available and supported connectors.
+- [Hotglue Connector State API](https://apis.io/apis/hotglue/hotglue-connector-state-api/) — Manage bookmark and sync state for linked connectors.
+- [Hotglue Discover API](https://apis.io/apis/hotglue/hotglue-discover-api/) — Trigger and poll connector discovery.
+- [Hotglue Jobs API](https://apis.io/apis/hotglue/hotglue-jobs-api/) — Run jobs for linked connectors.
+- [Hotglue Linked Connectors API](https://apis.io/apis/hotglue/hotglue-linked-connectors-api/) — Create, retrieve, update, and delete linked connectors for a tenant.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Hotglue API V2
+Model Context Protocol servers that expose the API to agents.
 
-The Hotglue API v2 enables programmatic management of embedded integrations including linked connectors, flow configurations, job execution, tenant management, and connector state for SaaS product integrations.
+- [hotglue](https://apis.io/servers/hotglue/hotglue/)
 
-- **Human URL:** [https://docs.hotglue.com/api-reference/v2](https://docs.hotglue.com/api-reference/v2)
-- **Base URL:** `https://api.hotglue.com`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Connectors
-- Embedded Integrations
-- ETL
-- Integration Platform
+- [Hotglue Agentic Access](https://apis.io/agentic-access/hotglue/hotglue-agentic-access/)
 
-#### Properties
+#### Collections (6)
 
-- [Documentation](https://docs.hotglue.com/)
-- [API Reference](https://docs.hotglue.com/api-reference/v2)
-- [Getting Started](https://docs.hotglue.com/getting-started)
-- [OpenAPI](openapi/hotglue-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hotglue.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hotglue.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Hotglue API V1
+- [Hotglue API V2](https://apis.io/collections/hotglue/open-hotglue/)
+- [Hotglue API V2 Connector Metadata API](https://apis.io/collections/hotglue/open-hotglue-connector-metadata-api/)
+- [Hotglue API V2 Connector Metadata Connector State API](https://apis.io/collections/hotglue/open-hotglue-connector-state-api/)
+- [Hotglue API V2 Connector Metadata Discover API](https://apis.io/collections/hotglue/open-hotglue-discover-api/)
+- [Hotglue API V2 Connector Metadata Jobs API](https://apis.io/collections/hotglue/open-hotglue-jobs-api/)
+- [Hotglue API V2 Connector Metadata Linked Connectors API](https://apis.io/collections/hotglue/open-hotglue-linked-connectors-api/)
 
-The Hotglue API v1 provides the original REST API for managing integration flows, linked sources, linked targets, source state, and job execution.
+#### Security (4)
 
-- **Human URL:** [https://docs.hotglue.com/api-reference/v1/introduction](https://docs.hotglue.com/api-reference/v1/introduction)
-- **Base URL:** `https://api.hotglue.com`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Hotglue Authentication](https://apis.io/security/hotglue/hotglue-authentication/)
+- [Hotglue Domain Security](https://apis.io/security/hotglue/hotglue-domain-security/)
+- [Hotglue Trust Center](https://apis.io/security/hotglue/hotglue-trust-center/)
+- [Hotglue Vulnerability Disclosure](https://apis.io/security/hotglue/hotglue-vulnerability-disclosure/)
 
-- Embedded Integrations
-- Integration Platform
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://docs.hotglue.com/api-reference/v1/introduction)
-- [Postman Collection](collections/hotglue.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hotglue.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Hotglue Plans Pricing](https://apis.io/plans/hotglue/hotglue-plans-pricing/)
 
-## Common Properties
+#### Rate limits (1)
 
-- [GitHub Organization](https://github.com/hotgluexyz)
-- [LinkedIn](https://www.linkedin.com/company/hotglue)
+Published request limits.
+
+- [Hotglue Rate Limits](https://apis.io/rate-limits/hotglue/hotglue-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Hotglue Finops](https://apis.io/finops/hotglue/hotglue-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://hotglue.com/)
 - [Documentation](https://docs.hotglue.com/)
 - [Pricing](https://hotglue.com/pricing)
 - [Blog](https://hotglue.com/blog/)
-- [Connectors](https://hotglue.com/connectors/)
-- [Sign Up](https://hotglue.com/signup)
-- [Login](https://hotglue.com/login)
-- [L L Ms Txt](https://hotglue.com/llms.txt)
+- [GitHub](https://github.com/hotgluexyz)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 36.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 51.1 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 32.9 |
+
+**Agent readiness 29.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hotglue/](https://apis.io/providers/hotglue/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hotglue: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hotglue/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
